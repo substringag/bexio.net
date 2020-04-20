@@ -1,0 +1,4 @@
+c:\Users\ninom\projects\bexio.net\obj\Debug\netstandard2.0\bexio.net.csprojAssemblyReference.cache
+c:\Users\ninom\projects\bexio.net\obj\Debug\netstandard2.0\bexio.net.csproj.CoreCompileInputs.cache
+c:\Users\ninom\projects\bexio.net\obj\Debug\netstandard2.0\bexio.net.AssemblyInfoInputs.cache
+c:\Users\ninom\projects\bexio.net\obj\Debug\netstandard2.0\bexio.net.AssemblyInfo.cs
