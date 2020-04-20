@@ -28,11 +28,20 @@ namespace bexio.net
             _httpClient.DefaultRequestHeaders.Authorization = GenerateHeader();
         }
 
+        ///  pr_project
+        /// https://docs.bexio.com/#tag/Projects
         public async Task<IEnumerable<Project>> GetProjectsAsync() {
             var response = await GetAsync("pr_project");
             IEnumerable<Project> list = JsonConvert.DeserializeObject<IEnumerable<Project>>(response);
             return list;
+        }
 
+        ///  timesheet
+        /// https://docs.bexio.com/#tag/Timesheet
+        public async Task<IEnumerable<Timesheet>> GetTimesheetAsync() {
+            var response = await GetAsync("timesheet");
+            IEnumerable<Timesheet> list = JsonConvert.DeserializeObject<IEnumerable<Timesheet>>(response);
+            return list;
         }
 
         private AuthenticationHeaderValue GenerateHeader() {
@@ -41,10 +50,10 @@ namespace bexio.net
 
         private async Task<string> GetAsync(string path)
         {
-            UriBuilder uri = new UriBuilder();
-            uri.Host = _url;
-            uri.Path = path;
-            HttpResponseMessage response = await _httpClient.GetAsync(uri.Uri);
+            // TODO: not good, make it work for any url
+            Uri uri = new Uri(_url + path);
+            
+            HttpResponseMessage response = await _httpClient.GetAsync(uri);
 
             if (response.StatusCode != System.Net.HttpStatusCode.OK)
             {
