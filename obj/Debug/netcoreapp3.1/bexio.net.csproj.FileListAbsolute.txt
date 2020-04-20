@@ -1,9 +1,0 @@
-C:\Users\ninom\projects\bexio.net\obj\Debug\netcoreapp3.1\bexio.net.csprojAssemblyReference.cache
-C:\Users\ninom\projects\bexio.net\obj\Debug\netcoreapp3.1\bexio.net.csproj.CoreCompileInputs.cache
-C:\Users\ninom\projects\bexio.net\obj\Debug\netcoreapp3.1\bexio.net.AssemblyInfoInputs.cache
-C:\Users\ninom\projects\bexio.net\obj\Debug\netcoreapp3.1\bexio.net.AssemblyInfo.cs
-C:\Users\ninom\projects\bexio.net\bin\Debug\netcoreapp3.1\bexio.net.deps.json
-C:\Users\ninom\projects\bexio.net\bin\Debug\netcoreapp3.1\bexio.net.dll
-C:\Users\ninom\projects\bexio.net\bin\Debug\netcoreapp3.1\bexio.net.pdb
-C:\Users\ninom\projects\bexio.net\obj\Debug\netcoreapp3.1\bexio.net.dll
-C:\Users\ninom\projects\bexio.net\obj\Debug\netcoreapp3.1\bexio.net.pdb
