@@ -28,7 +28,7 @@ namespace bexio.net
             _httpClient.DefaultRequestHeaders.Authorization = GenerateHeader();
         }
 
-        ///  pr_project
+        /// GET pr_project
         /// https://docs.bexio.com/#tag/Projects
         public async Task<IEnumerable<Project>> GetProjectsAsync() {
             var response = await GetAsync("pr_project");
@@ -36,12 +36,21 @@ namespace bexio.net
             return list;
         }
 
-        ///  timesheet
+        /// GET timesheet
         /// https://docs.bexio.com/#tag/Timesheet
-        public async Task<IEnumerable<Timesheet>> GetTimesheetAsync() {
+        public async Task<IEnumerable<Timesheet>> GetTimesheetsAsync() {
             var response = await GetAsync("timesheet");
             IEnumerable<Timesheet> list = JsonConvert.DeserializeObject<IEnumerable<Timesheet>>(response);
             return list;
+        }
+
+        /// POST timesheet
+        /// https://docs.bexio.com/#operation/v2CreateTimesheet
+        public async Task<Timesheet> SaveTimesheetAsync(Timesheet data)
+        {
+            var response = await PostAsync("timesheet", ToDictionary(data));
+            Timesheet sheet = JsonConvert.DeserializeObject<Timesheet>(response);
+            return sheet;
         }
 
         private AuthenticationHeaderValue GenerateHeader() {
@@ -64,13 +73,16 @@ namespace bexio.net
             string responseString = await response.Content.ReadAsStringAsync();
 
             return responseString;
-        } 
+        }
 
-        private async Task<string> PostAsync(Uri url, Dictionary<string, string> body)
+        private async Task<string> PostAsync(string path, Dictionary<string, string> body)
         {
+            // TODO: not good, make it work for any url
+            Uri uri = new Uri(_url + path);
+
             FormUrlEncodedContent content = new FormUrlEncodedContent(body);
 
-            HttpResponseMessage response = await _httpClient.PostAsync(url, content);
+            HttpResponseMessage response = await _httpClient.PostAsync(uri, content);
 
             if (response.StatusCode != System.Net.HttpStatusCode.OK)
             {
@@ -82,5 +94,12 @@ namespace bexio.net
 
             return responseString;
         } 
+
+        public static Dictionary<string, string> ToDictionary(object obj)
+        {       
+            var json = JsonConvert.SerializeObject(obj);
+            var dictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);   
+            return dictionary;
+        }
     }
 }
