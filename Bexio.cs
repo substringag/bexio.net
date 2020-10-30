@@ -68,6 +68,18 @@ namespace bexio.net
             return sheet;
         }*/
 
+        /// GET business activites
+        /// https://docs.bexio.com/#operation/v2ListBusinessActivities
+        public List<BusinessActivity> GetBusinessActivities(string orderBy = "id", int offset = 0, int limit = 1000) {
+            var request = new RestRequest($"client_service?order_by={orderBy}&offset={offset}&limit={limit}", Method.GET);
+            IRestResponse response = ExecuteRestRequestWithBearer(request);
+            List<BusinessActivity> list = Newtonsoft.Json.JsonConvert.DeserializeObject<List<BusinessActivity>>(response.Content);
+            return list;
+        }
+        
+
+
+
 
         #region Helpers
 
