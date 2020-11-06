@@ -31,7 +31,7 @@ namespace bexio.net
         /// GET pr_project
         /// https://docs.bexio.com/#tag/Projects
         public List<Project> GetProjects(string orderBy = "id", int offset = 0, int limit = 1000) {
-            var request = new RestRequest($"pr_project?order_by={orderBy}&offset={offset}&limit={limit}", Method.GET);
+            var request = new RestRequest($"2.0/pr_project?order_by={orderBy}&offset={offset}&limit={limit}", Method.GET);
             IRestResponse response = ExecuteRestRequestWithBearer(request);
             List<Project> list = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Project>>(response.Content);
             return list;
@@ -40,7 +40,7 @@ namespace bexio.net
        /// GET timesheet
         /// https://docs.bexio.com/#tag/Timesheet
         public List<Timesheet> GetTimesheets(string orderBy = "id", int offset = 0, int limit = 1000) {
-            var request = new RestRequest($"timesheet?order_by={orderBy}&offset={offset}&limit={limit}", Method.GET);
+            var request = new RestRequest($"2.0/timesheet?order_by={orderBy}&offset={offset}&limit={limit}", Method.GET);
             IRestResponse response = ExecuteRestRequestWithBearer(request);
             List<Timesheet> list = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Timesheet>>(response.Content);
             return list;
@@ -50,7 +50,7 @@ namespace bexio.net
         /// https://docs.bexio.com/#operation/v2SearchTimesheets
         public List<Timesheet> SearchTimesheets(List<TimesheetSearchBody> data)
         {
-            var request = new RestRequest($"timesheet/search", Method.POST);
+            var request = new RestRequest($"2.0/timesheet/search", Method.POST);
             string jsonString;
             jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(data);
             request.AddParameter("application/json", jsonString,  ParameterType.RequestBody);
@@ -58,20 +58,99 @@ namespace bexio.net
             List<Timesheet> list = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Timesheet>>(response.Content);
             return list;
         }
+
+
+        #region FictionalUsers 
+        // FictionalUser = "Ansprechpartner" in german"
+        // https://docs.bexio.com/#operation/v3ShowFictionalUser
+        //ACHTUNG; Dies wird auf API /3.0/, nicht auf API /2.0/ aufgerufen
+        public List<FictionalUser> GetFictionalUsers(int offset = 0, int limit = 1000) {
+            var request = new RestRequest($"3.0/fictional_users?offset={offset}&limit={limit}", Method.GET);
+            IRestResponse response = ExecuteRestRequestWithBearer(request);
+            List<FictionalUser> list = Newtonsoft.Json.JsonConvert.DeserializeObject<List<FictionalUser>>(response.Content);
+            return list;
+        }
+        public FictionalUser GetFictionalUser(int fictionalUserId) {
+            var request = new RestRequest($"3.0/fictional_users/{fictionalUserId.ToString()}", Method.GET);
+            IRestResponse response = ExecuteRestRequestWithBearer(request);
+            FictionalUser user = Newtonsoft.Json.JsonConvert.DeserializeObject<FictionalUser>(response.Content);
+            return user;
+        }
+
+
+        //for insert, udpate
+        public FictionalUser SaveFictionalUser(FictionalUserBase data, int fictionalUserId = -1) {
+            
+            Method myMethod;
+            if (fictionalUserId < 0 ) {
+                myMethod = Method.POST; //insert
+            } else {
+                myMethod = Method.PATCH; //update
+            }
+            var request = new RestRequest($"3.0/fictional_users/{fictionalUserId.ToString()}", myMethod);
+            string jsonPayload;
+            jsonPayload = Newtonsoft.Json.JsonConvert.SerializeObject(data);
+            request.AddParameter("application/json", jsonPayload,  ParameterType.RequestBody);
+
+            IRestResponse response = ExecuteRestRequestWithBearer(request);
+            FictionalUser user = Newtonsoft.Json.JsonConvert.DeserializeObject<FictionalUser>(response.Content);
+            return user;
+        }
+
+
+        public Boolean DeleteFictionalUser(int fictionalUserId) {
+             var request = new RestRequest($"3.0/fictional_users/{fictionalUserId.ToString()}", Method.DELETE);
+             IRestResponse response = ExecuteRestRequestWithBearer(request);
+             var bla = JsonConvert.DeserializeObject(response.Content);
+
+            //TODO: FIXME:, read success from response.
+            //{
+            // "success": true
+            // }
+              return true;   
+        }
+
+        #endregion
+
+
+
+
+
+
 /*
         /// POST timesheet
+        // Für Timesheets müssen Ansprechpartner erfasst werden die snychron sind mit den Nutzern von Wata. In der Nutzertabelle von Wata 
+        //muss die entsprechende ID hinterlegt werden.  
+        https://docs.bexio.com/#operation/v3ShowUser
+        "Ansprechpartner" heissen auf der API "Fictional User"  und es gibt getter und setter Methoden
+        
+
+
+
+
+
+        
+
+
+        https://support.bexio.com/hc/de/articles/206489028-Ansprechpartner-ohne-Login-erfassen
+
         /// https://docs.bexio.com/#operation/v2CreateTimesheet
         public async Task<Timesheet> SaveTimesheetAsync(Timesheet data)
         {
             var response = await PostAsync("timesheet", ToDictionary(data));
             Timesheet sheet = JsonConvert.DeserializeObject<Timesheet>(response);
             return sheet;
-        }*/
+        }
+        //Delete Timesheet 
+
+        //Update Timesheet 
+
+        */
 
         /// GET business activites
         /// https://docs.bexio.com/#operation/v2ListBusinessActivities
         public List<BusinessActivity> GetBusinessActivities(string orderBy = "id", int offset = 0, int limit = 1000) {
-            var request = new RestRequest($"client_service?order_by={orderBy}&offset={offset}&limit={limit}", Method.GET);
+            var request = new RestRequest($"2.0/client_service?order_by={orderBy}&offset={offset}&limit={limit}", Method.GET);
             IRestResponse response = ExecuteRestRequestWithBearer(request);
             List<BusinessActivity> list = Newtonsoft.Json.JsonConvert.DeserializeObject<List<BusinessActivity>>(response.Content);
             return list;
