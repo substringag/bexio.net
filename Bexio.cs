@@ -128,22 +128,7 @@ namespace bexio.net
 
 
 /*
-        /// POST timesheet
-        // Für Timesheets müssen Ansprechpartner erfasst werden die snychron sind mit den Nutzern von Wata. In der Nutzertabelle von Wata 
-        //muss die entsprechende ID hinterlegt werden.  
-        https://docs.bexio.com/#operation/v3ShowUser
-        "Ansprechpartner" heissen auf der API "Fictional User"  und es gibt getter und setter Methoden
-        
-
-
-
-
-
-        
-
-
-        https://support.bexio.com/hc/de/articles/206489028-Ansprechpartner-ohne-Login-erfassen
-
+     
         /// https://docs.bexio.com/#operation/v2CreateTimesheet
         public async Task<Timesheet> SaveTimesheetAsync(Timesheet data)
         {
