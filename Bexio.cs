@@ -63,7 +63,7 @@ namespace bexio.net
         #region FictionalUsers 
         // FictionalUser = "Ansprechpartner" in german"
         // https://docs.bexio.com/#operation/v3ShowFictionalUser
-        //ACHTUNG; Dies wird auf API /3.0/, nicht auf API /2.0/ aufgerufen
+        //-> This uses API /3.0/, not API /2.0/
         public List<FictionalUser> GetFictionalUsers(int offset = 0, int limit = 1000) {
             var request = new RestRequest($"3.0/fictional_users?offset={offset}&limit={limit}", Method.GET);
             IRestResponse response = ExecuteRestRequestWithBearer(request);
@@ -78,16 +78,10 @@ namespace bexio.net
         }
 
 
-        //for insert, udpate
-        public FictionalUser SaveFictionalUser(FictionalUserBase data, int fictionalUserId = -1) {
+        //https://docs.bexio.com/#operation/v3CreateFictionalUser
+        public FictionalUser InsertFictionalUser(FictionalUserBase data) {
             
-            Method myMethod;
-            if (fictionalUserId < 0 ) {
-                myMethod = Method.POST; //insert
-            } else {
-                myMethod = Method.PATCH; //update
-            }
-            var request = new RestRequest($"3.0/fictional_users/{fictionalUserId.ToString()}", myMethod);
+            var request = new RestRequest($"3.0/fictional_users/", Method.POST);
             string jsonPayload;
             jsonPayload = Newtonsoft.Json.JsonConvert.SerializeObject(data);
             request.AddParameter("application/json", jsonPayload,  ParameterType.RequestBody);
@@ -97,17 +91,33 @@ namespace bexio.net
             return user;
         }
 
+        //https://docs.bexio.com/#operation/v3UpdateFictionalUser
+        public FictionalUser UpdateFictionalUser(FictionalUserBase data, int fictionalUserId = -1) {
+            
+            var request = new RestRequest($"3.0/fictional_users/{fictionalUserId.ToString()}", Method.PATCH);
+            string jsonPayload;
+            jsonPayload = Newtonsoft.Json.JsonConvert.SerializeObject(data);
+            request.AddParameter("application/json", jsonPayload,  ParameterType.RequestBody);
+            IRestResponse response = ExecuteRestRequestWithBearer(request);
+            FictionalUser user = Newtonsoft.Json.JsonConvert.DeserializeObject<FictionalUser>(response.Content);
+            return user;
+        }
 
+
+        //https://docs.bexio.com/#operation/v3DeleteFictionalUser
         public Boolean DeleteFictionalUser(int fictionalUserId) {
              var request = new RestRequest($"3.0/fictional_users/{fictionalUserId.ToString()}", Method.DELETE);
              IRestResponse response = ExecuteRestRequestWithBearer(request);
-             var bla = JsonConvert.DeserializeObject(response.Content);
 
-            //TODO: FIXME:, read success from response.
+
+            // read success flag from JSON Answer:
             //{
             // "success": true
-            // }
-              return true;   
+            //}
+            dynamic bla = JObject.Parse(response.Content);
+            bool success   = bla ?.success;
+
+            return success;   
         }
 
         #endregion
