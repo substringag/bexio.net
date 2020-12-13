@@ -1,8 +1,6 @@
-using System.Collections.Generic;
-
 namespace bexio.net.Models
 {
-    public class Timesheet : TimesheetBase
+    public class User : UserBase
     {
         public string id { get; set; }
     }

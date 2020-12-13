@@ -28,6 +28,8 @@ namespace bexio.net
             _restClient.Timeout = -1;
         }
 
+
+        #region projects  
         /// GET pr_project
         /// https://docs.bexio.com/#tag/Projects
         public List<Project> GetProjects(string orderBy = "id", int offset = 0, int limit = 1000) {
@@ -36,7 +38,26 @@ namespace bexio.net
             List<Project> list = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Project>>(response.Content);
             return list;
         }
+        #endregion
 
+        #region Users
+        // https://docs.bexio.com/#operation/v3ListUsers
+        public List<User> GetUsers(int offset = 0, int limit = 1000) {
+            var request = new RestRequest($"3.0/users?offset={offset}&limit={limit}", Method.GET);
+            IRestResponse response = ExecuteRestRequestWithBearer(request);
+            List<User> list = Newtonsoft.Json.JsonConvert.DeserializeObject<List<User>>(response.Content);
+            return list;
+        }
+        // https://docs.bexio.com/#operation/v3ShowUser
+        public User GetUser(int UserId) {
+            var request = new RestRequest($"3.0/users/{UserId.ToString()}", Method.GET);
+            IRestResponse response = ExecuteRestRequestWithBearer(request);
+            User user = Newtonsoft.Json.JsonConvert.DeserializeObject<User>(response.Content);
+            return user;
+        }
+        #endregion
+
+        #region timesheet 
        /// GET timesheet
         /// https://docs.bexio.com/#tag/Timesheet
         public List<Timesheet> GetTimesheets(string orderBy = "id", int offset = 0, int limit = 1000) {
@@ -58,6 +79,40 @@ namespace bexio.net
             List<Timesheet> list = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Timesheet>>(response.Content);
             return list;
         }
+        /// https://docs.bexio.com/#operation/v2CreateTimesheet
+        public Timesheet InsertTimesheet(TimesheetBase data)
+        {
+            var request = new RestRequest($"/2.0/timesheet", Method.POST);
+            string jsonPayload;
+            jsonPayload = Newtonsoft.Json.JsonConvert.SerializeObject(data);
+            request.AddParameter("application/json", jsonPayload,  ParameterType.RequestBody);
+
+            IRestResponse response = ExecuteRestRequestWithBearer(request);
+            Timesheet retval = Newtonsoft.Json.JsonConvert.DeserializeObject<Timesheet>(response.Content);
+            return retval;
+        }
+
+
+        //https://docs.bexio.com/#operation/v2EditTimesheet
+        public Timesheet UpdateTimesheet(Timesheet data, int timesheetId)
+        {
+            var request = new RestRequest($"/2.0/timesheet/{timesheetId.ToString()}", Method.PATCH);
+            string jsonPayload;
+            jsonPayload = Newtonsoft.Json.JsonConvert.SerializeObject(data);
+            request.AddParameter("application/json", jsonPayload,  ParameterType.RequestBody);
+            IRestResponse response = ExecuteRestRequestWithBearer(request);
+            Timesheet retval = Newtonsoft.Json.JsonConvert.DeserializeObject<Timesheet>(response.Content);
+            return retval;
+        }
+
+        //https://docs.bexio.com/#operation/DeleteTimesheet
+        public Boolean DeleteTimesheet(int timesheetId)
+        {
+            var request = new RestRequest($"/2.0/timesheet/{timesheetId.ToString()}", Method.DELETE);
+            IRestResponse response = ExecuteRestRequestWithBearer(request);
+            return readSuccessFromResponse(response);   
+        }
+        #endregion
 
 
         #region FictionalUsers 
@@ -106,42 +161,16 @@ namespace bexio.net
 
         //https://docs.bexio.com/#operation/v3DeleteFictionalUser
         public Boolean DeleteFictionalUser(int fictionalUserId) {
-             var request = new RestRequest($"3.0/fictional_users/{fictionalUserId.ToString()}", Method.DELETE);
-             IRestResponse response = ExecuteRestRequestWithBearer(request);
-
-
-            // read success flag from JSON Answer:
-            //{
-            // "success": true
-            //}
-            dynamic bla = JObject.Parse(response.Content);
-            bool success   = bla ?.success;
-
-            return success;   
+            var request = new RestRequest($"3.0/fictional_users/{fictionalUserId.ToString()}", Method.DELETE);
+            IRestResponse response = ExecuteRestRequestWithBearer(request);
+            return readSuccessFromResponse(response);   
+;   
         }
 
         #endregion
 
 
-
-
-
-
-/*
-     
-        /// https://docs.bexio.com/#operation/v2CreateTimesheet
-        public async Task<Timesheet> SaveTimesheetAsync(Timesheet data)
-        {
-            var response = await PostAsync("timesheet", ToDictionary(data));
-            Timesheet sheet = JsonConvert.DeserializeObject<Timesheet>(response);
-            return sheet;
-        }
-        //Delete Timesheet 
-
-        //Update Timesheet 
-
-        */
-
+        #region BusinessActivities
         /// GET business activites
         /// https://docs.bexio.com/#operation/v2ListBusinessActivities
         public List<BusinessActivity> GetBusinessActivities(string orderBy = "id", int offset = 0, int limit = 1000) {
@@ -150,9 +179,7 @@ namespace bexio.net
             List<BusinessActivity> list = Newtonsoft.Json.JsonConvert.DeserializeObject<List<BusinessActivity>>(response.Content);
             return list;
         }
-        
-
-
+        #endregion
 
 
         #region Helpers
@@ -164,6 +191,17 @@ namespace bexio.net
         private void AddBearer(RestRequest request, string accessToken = null) {
             request.AddHeader("Accept", "application/json");
             request.AddHeader("Authorization", "Bearer " + accessToken);
+        }
+        private bool readSuccessFromResponse(IRestResponse response){
+
+            // read success flag from JSON Answer:
+            //{
+            // "success": true
+            //}
+            dynamic tmp = JObject.Parse(response.Content);
+            bool success   = tmp ?.success;
+
+            return success;   
         }
 
         private IRestResponse ExecuteRestRequestWithBearer(RestRequest request, int trial = 0)
