@@ -3,8 +3,9 @@ using System.Collections.Generic;
 
 namespace bexio.net.Models
 {
-	public class TimesheetBase
+	public class TimesheetUpdate
 	{
+		public int id { get; set; }
 		public int user_id { get; set; }
 		public int? status_id { get; set; }
 		public int? client_service_id { get; set; }
@@ -17,6 +18,6 @@ namespace bexio.net.Models
 		public int? pr_package_id { get; set; }
 		public int? pr_milestone_id { get; set; }
 		public string estimated_time { get; set; }
-		public Tracking tracking { get; set; }
+		public TrackingUpdate tracking { get; set; }
 	}
 }

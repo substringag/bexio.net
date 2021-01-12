@@ -3,10 +3,8 @@ using Newtonsoft.Json;
 
 namespace bexio.net.Models
 {
-	public class Tracking
+	public class TrackingUpdate
 	{
-		// [JsonIgnore]
-		public string type { get; set; }
 		public string date { get; set; }
 		public string duration { get; set; }
 	}

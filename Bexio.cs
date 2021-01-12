@@ -62,10 +62,10 @@ namespace bexio.net
 
 		#region timesheet 
 		/// GET timesheet
-		/// https://docs.bexio.com/#tag/Timesheet
+		/// https://docs.bexio.com/#operation/v2ListTimesheets
 		public List<Timesheet> GetTimesheets(string orderBy = "id", int offset = 0, int limit = 1000)
 		{
-			var request = new RestRequest($"2.0/timesheet?order_by={orderBy}&offset={offset}&limit={limit}", Method.GET);
+			var request = new RestRequest($"2.0/timesheet?order_by={orderBy}&offset={offset}", Method.GET);
 			IRestResponse response = ExecuteRestRequestWithBearer(request);
 			List<Timesheet> list = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Timesheet>>(response.Content);
 			return list;
@@ -73,9 +73,9 @@ namespace bexio.net
 
 		/// POST timesheet/search
 		/// https://docs.bexio.com/#operation/v2SearchTimesheets
-		public List<Timesheet> SearchTimesheets(List<TimesheetSearchBody> data)
+		public List<Timesheet> SearchTimesheets(List<TimesheetSearchBody> data, string orderBy = "date", int offset = 0, int limit = 100)
 		{
-			var request = new RestRequest($"2.0/timesheet/search", Method.POST);
+			var request = new RestRequest($"2.0/timesheet/search?order_by={orderBy}_desc&offset={offset}&limit={limit}", Method.POST);
 			string jsonString;
 			jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(data);
 			request.AddParameter("application/json", jsonString, ParameterType.RequestBody);
@@ -97,19 +97,19 @@ namespace bexio.net
 		}
 
 
-		//https://docs.bexio.com/#operation/v2EditTimesheet
-		public Timesheet UpdateTimesheet(Timesheet data, int timesheetId)
+		// https://docs.bexio.com/#operation/v2EditTimesheet
+		public TimesheetUpdate UpdateTimesheet(TimesheetUpdate data, int timesheetId)
 		{
-			var request = new RestRequest($"/2.0/timesheet/{timesheetId.ToString()}", Method.PATCH);
+			var request = new RestRequest($"/2.0/timesheet/{timesheetId.ToString()}", Method.POST);
 			string jsonPayload;
 			jsonPayload = Newtonsoft.Json.JsonConvert.SerializeObject(data);
 			request.AddParameter("application/json", jsonPayload, ParameterType.RequestBody);
 			IRestResponse response = ExecuteRestRequestWithBearer(request);
-			Timesheet retval = Newtonsoft.Json.JsonConvert.DeserializeObject<Timesheet>(response.Content);
+			TimesheetUpdate retval = Newtonsoft.Json.JsonConvert.DeserializeObject<TimesheetUpdate>(response.Content);
 			return retval;
 		}
 
-		//https://docs.bexio.com/#operation/DeleteTimesheet
+		// https://docs.bexio.com/#operation/DeleteTimesheet
 		public Boolean DeleteTimesheet(int timesheetId)
 		{
 			var request = new RestRequest($"/2.0/timesheet/{timesheetId.ToString()}", Method.DELETE);
