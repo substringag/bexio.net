@@ -73,9 +73,9 @@ namespace bexio.net
 
 		/// POST timesheet/search
 		/// https://docs.bexio.com/#operation/v2SearchTimesheets
-		public List<Timesheet> SearchTimesheets(List<TimesheetSearchBody> data, string orderBy = "date", int offset = 0, int limit = 100)
+		public List<Timesheet> SearchTimesheets(List<TimesheetSearchBody> data, string orderBy = "date", int offset = 0)
 		{
-			var request = new RestRequest($"2.0/timesheet/search?order_by={orderBy}_desc&offset={offset}&limit={limit}", Method.POST);
+			var request = new RestRequest($"2.0/timesheet/search?order_by={orderBy}_desc&offset={offset}", Method.POST);
 			string jsonString;
 			jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(data);
 			request.AddParameter("application/json", jsonString, ParameterType.RequestBody);
