@@ -57,6 +57,82 @@ namespace bexio.net
             _serializeOptions.Converters.Add(new NullableDecimalConverter());
         }
 
+        #region Contacts
+
+        // TODO
+        // list
+        // create
+        // search
+        // get
+        // edit
+        // delete
+        // bulk create
+
+        #region Contact relations
+
+        // list
+        // create
+        // search
+        // get
+        // edit
+        // delete
+
+        #endregion
+
+        #region Contact group
+
+        // list
+        // create
+        // search
+        // get
+        // edit
+        // delete
+
+        #endregion
+
+        #region Contact sectors
+
+        // list
+        // search
+
+        #endregion
+
+        #region Additional addresses
+
+        // list
+        // create
+        // search
+        // get
+        // edit
+        // delete
+
+        #endregion
+
+        #region Salutations
+
+        // list
+        // create
+        // search
+        // get
+        // edit
+        // delete
+
+        #endregion
+
+        #region Titles
+
+        // list
+        // create
+        // search
+        // get
+        // edit
+        // delete
+
+        #endregion
+
+        #endregion
+
+
         #region Projects
 
         /// <summary>
@@ -594,34 +670,62 @@ namespace bexio.net
             return (await ExecuteRequestInternal<BooleanResponse>(httpRequestMessage))?.Success == true;
         }
 
+
+        internal async Task<PaginatedList<TResponse>?> GetPaginatedAsync<TResponse>(string url)
+            where TResponse : class
+        {
+            var httpRequestMessage = new HttpRequestMessage
+            {
+                Method     = HttpMethod.Get,
+                RequestUri = new Uri(JoinUriSegments(_url, url)),
+            };
+            var response = await ExecuteHttpRequest(httpRequestMessage);
+            if (response == null)
+                return null;
+
+            string responseContentString = await response.Content.ReadAsStringAsync();
+            if (string.IsNullOrEmpty(responseContentString))
+            {
+                if (_unsuccessfulReturnStyle == UnsuccessfulReturnStyle.Throw)
+                    throw new UnsuccessfulException((int)response.StatusCode, "Empty response");
+                return null;
+            }
+
+            var list = JsonSerializer.Deserialize<List<TResponse>>(responseContentString, _serializeOptions);
+            if (list == null)
+            {
+                // can not serialize the response
+                if (_unsuccessfulReturnStyle == UnsuccessfulReturnStyle.Throw)
+                    throw new UnsuccessfulException((int)response.StatusCode, "Response is an invalid format");
+                return null;
+            }
+
+            // read headers
+            if (int.TryParse(response.Headers.GetValues("X-Limit").FirstOrDefault(), out int limit) &&
+                int.TryParse(response.Headers.GetValues("X-Offset").FirstOrDefault(), out int offset) &&
+                int.TryParse(response.Headers.GetValues("X-Total-Count").FirstOrDefault(), out int totalCount))
+            {
+                return new PaginatedList<TResponse>(list, limit, offset, totalCount);
+            }
+
+            // not a paginated response. Return simple list
+            return new PaginatedList<TResponse>(list);
+        }
+
         private async Task<TResponse?> ExecuteRequestInternal<TResponse>(HttpRequestMessage request)
             where TResponse : class
         {
             try
             {
-                request.Headers.Add(HttpRequestHeader.Authorization.ToString(), "Bearer " + _apiToken);
-                request.Headers.Add(HttpRequestHeader.Accept.ToString(), "application/json");
-
-                var httpResponse = await _httpClient.SendAsync(request);
-
-                if (httpResponse.StatusCode != HttpStatusCode.OK &&
-                    httpResponse.StatusCode != HttpStatusCode.Created &&
-                    httpResponse.StatusCode != HttpStatusCode.NotModified)
-                {
-                    // TODO: log to ILogger
-                    Console.WriteLine("Error: " + (int)httpResponse.StatusCode);
-                    Console.WriteLine(await httpResponse.Content.ReadAsStringAsync());
-                    if (_unsuccessfulReturnStyle == UnsuccessfulReturnStyle.Throw)
-                        throw new UnsuccessfulException((int)httpResponse.StatusCode);
+                var httpResponse = await ExecuteHttpRequest(request);
+                if (httpResponse == null)
                     return null;
-                }
 
                 string responseContentString = await httpResponse.Content.ReadAsStringAsync();
 
 #if DEBUG
-                Console.WriteLine("Response-Content:");
-                Console.WriteLine(responseContentString);
-                Console.WriteLine("---");
+                Console.WriteLine("### Response-Content: " + responseContentString);
+                Console.WriteLine("### ---");
 #endif
 
                 if (string.IsNullOrEmpty(responseContentString))
@@ -644,6 +748,28 @@ namespace bexio.net
                 Console.WriteLine(ex);
                 return null;
             }
+        }
+
+        private async Task<HttpResponseMessage?> ExecuteHttpRequest(HttpRequestMessage request)
+        {
+            request.Headers.Add(HttpRequestHeader.Authorization.ToString(), "Bearer " + _apiToken);
+            request.Headers.Add(HttpRequestHeader.Accept.ToString(), "application/json");
+
+            var httpResponse = await _httpClient.SendAsync(request);
+
+            if (httpResponse.StatusCode != HttpStatusCode.OK &&
+                httpResponse.StatusCode != HttpStatusCode.Created &&
+                httpResponse.StatusCode != HttpStatusCode.NotModified)
+            {
+                // TODO: log to ILogger
+                Console.WriteLine("### Error: " + (int)httpResponse.StatusCode);
+                Console.WriteLine(await httpResponse.Content.ReadAsStringAsync());
+                if (_unsuccessfulReturnStyle == UnsuccessfulReturnStyle.Throw)
+                    throw new UnsuccessfulException((int)httpResponse.StatusCode);
+                return null;
+            }
+
+            return httpResponse;
         }
 
         private static string JoinUriSegments(string uri, params string[]? segments)
