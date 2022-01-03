@@ -2,6 +2,15 @@
 {
     internal static class Constants
     {
+        /// <summary>
+        /// Possible values:<br/>
+        /// "=" "equal" "!=" "not_equal"
+        /// ">" "greater_than" ">=" "greater_equal"
+        /// "&lt;" "less_than" "&lt;=" "less_equal"
+        /// "like" "not_like"
+        /// "is_null" "not_null"
+        /// "in" "not_in"
+        /// </summary>
         public static class SearchCriteria
         {
             public static string like         = "like";

@@ -1,4 +1,4 @@
-namespace bexio.net.Models.FictionalUser
+namespace bexio.net.Models.Other.FictionalUser
 {
     public class FictionalUser : FictionalUserBase
     {

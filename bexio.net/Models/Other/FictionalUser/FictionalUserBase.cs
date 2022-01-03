@@ -1,4 +1,4 @@
-namespace bexio.net.Models.FictionalUser
+namespace bexio.net.Models.Other.FictionalUser
 {
     //<Entity>Base contains everything expect id and is used as insertType 
     public class FictionalUserBase
