@@ -55,9 +55,10 @@ namespace bexio.net
         /// GET pr_project
         /// https://docs.bexio.com/#tag/Projects
         public async Task<List<Project>?> GetProjects(string orderBy = "name", int offset = 0, int limit = 1000)
-        {
-            return await GetAsync<List<Project>>($"2.0/pr_project?order_by={orderBy}&offset={offset}&limit={limit}");
-        }
+            => await GetAsync<List<Project>>("2.0/pr_project"
+                .AddQueryParameter("order_by", orderBy)
+                .AddQueryParameter("offset", offset)
+                .AddQueryParameter("limit", limit));
 
         #endregion
 
@@ -65,15 +66,13 @@ namespace bexio.net
 
         // https://docs.bexio.com/#operation/v3ListUsers
         public async Task<List<User>?> GetUsers(int offset = 0, int limit = 1000)
-        {
-            return await GetAsync<List<User>>($"3.0/users?offset={offset}&limit={limit}");
-        }
+            => await GetAsync<List<User>>("3.0/users"
+                .AddQueryParameter("offset", offset)
+                .AddQueryParameter("limit", limit));
 
         // https://docs.bexio.com/#operation/v3ShowUser
         public async Task<User?> GetUser(int userId)
-        {
-            return await GetAsync<User>($"3.0/users/{userId.ToString()}");
-        }
+            => await GetAsync<User>($"3.0/users/{userId.ToString()}");
 
         #endregion
 
@@ -82,48 +81,42 @@ namespace bexio.net
         /// GET timesheet
         /// https://docs.bexio.com/#operation/v2ListTimesheets
         public async Task<List<Timesheet>?> GetTimesheets(string orderBy = "id", int offset = 0, int limit = 1000)
-        {
-            return await GetAsync<List<Timesheet>>($"2.0/timesheet?order_by={orderBy}&offset={offset}");
-        }
+            => await GetAsync<List<Timesheet>>("2.0/timesheet"
+                .AddQueryParameter("order_by", orderBy)
+                .AddQueryParameter("offset", offset));
 
         /// POST timesheet/search
         /// https://docs.bexio.com/#operation/v2SearchTimesheets
         public async Task<List<Timesheet>?> SearchTimesheets(List<TimesheetSearchBody> data,
-                                                             string                    orderBy = "date",
+                                                             string                    orderBy = "date_desc",
                                                              int                       offset  = 0)
-        {
-            return await PostAsync<List<Timesheet>>($"2.0/timesheet/search?order_by={orderBy}_desc&offset={offset}",
+            => await PostAsync<List<Timesheet>>("2.0/timesheet/search"
+                    .AddQueryParameter("order_by", orderBy)
+                    .AddQueryParameter("offset", offset),
                 data);
-        }
 
         /// https://docs.bexio.com/#operation/v2CreateTimesheet
         public async Task<Timesheet?> CreateTimesheet(TimesheetBase data)
-        {
-            return await PostAsync<Timesheet>("/2.0/timesheet", data);
-        }
+            => await PostAsync<Timesheet>("2.0/timesheet", data);
 
 
         // https://docs.bexio.com/#operation/v2EditTimesheet
         public async Task<TimesheetUpdate?> UpdateTimesheet(TimesheetUpdate data, int timesheetId)
-        {
-            return await PostAsync<TimesheetUpdate>($"/2.0/timesheet/{timesheetId.ToString()}");
-        }
+            => await PostAsync<TimesheetUpdate>($"/2.0/timesheet/{timesheetId.ToString()}", data);
 
         // https://docs.bexio.com/#operation/DeleteTimesheet
         public async Task<bool> DeleteTimesheet(int timesheetId)
-        {
-            return await DeleteAsync($"/2.0/timesheet/{timesheetId.ToString()}") == true;
-        }
+            => await DeleteAsync($"2.0/timesheet/{timesheetId.ToString()}") == true;
 
         /// GET timesheet status
         /// https://docs.bexio.com/#operation/v2ListTimeSheetStatus
         public async Task<List<TimesheetStatus>?> GetTimesheetStatus(string orderBy = "name",
                                                                      int    offset  = 0,
                                                                      int    limit   = 1000)
-        {
-            return await GetAsync<List<TimesheetStatus>>(
-                $"2.0/timesheet_status?order_by={orderBy}&offset={offset}&limit={limit}");
-        }
+            => await GetAsync<List<TimesheetStatus>>("2.0/timesheet_status"
+                .AddQueryParameter("order_by", orderBy)
+                .AddQueryParameter("offset", offset)
+                .AddQueryParameter("limit", limit));
 
         #endregion
 
@@ -134,33 +127,24 @@ namespace bexio.net
         // https://docs.bexio.com/#operation/v3ShowFictionalUser
         //-> This uses API /3.0/, not API /2.0/
         public async Task<List<FictionalUser>?> GetFictionalUsers(int offset = 0, int limit = 1000)
-        {
-            return await GetAsync<List<FictionalUser>>($"3.0/fictional_users?offset={offset}&limit={limit}");
-        }
+            => await GetAsync<List<FictionalUser>>("3.0/fictional_users"
+                .AddQueryParameter("offset", offset)
+                .AddQueryParameter("limit", limit));
 
         public async Task<FictionalUser?> GetFictionalUser(int fictionalUserId)
-        {
-            return await GetAsync<FictionalUser>($"3.0/fictional_users/{fictionalUserId.ToString()}");
-        }
+            => await GetAsync<FictionalUser>($"3.0/fictional_users/{fictionalUserId.ToString()}");
 
         //https://docs.bexio.com/#operation/v3CreateFictionalUser
         public async Task<FictionalUser?> InsertFictionalUser(FictionalUserBase data)
-        {
-            return await PostAsync<FictionalUser>("3.0/fictional_users/", data);
-        }
+            => await PostAsync<FictionalUser>("3.0/fictional_users/", data);
 
         //https://docs.bexio.com/#operation/v3UpdateFictionalUser
         public async Task<FictionalUser?> UpdateFictionalUser(FictionalUserBase data, int fictionalUserId = -1)
-        {
-            return await PatchAsync<FictionalUser>($"3.0/fictional_users/{fictionalUserId.ToString()}");
-        }
-
+            => await PatchAsync<FictionalUser>($"3.0/fictional_users/{fictionalUserId.ToString()}", data);
 
         //https://docs.bexio.com/#operation/v3DeleteFictionalUser
         public async Task<bool> DeleteFictionalUser(int fictionalUserId)
-        {
-            return await DeleteAsync($"3.0/fictional_users/{fictionalUserId.ToString()}") == true;
-        }
+            => await DeleteAsync($"3.0/fictional_users/{fictionalUserId.ToString()}") == true;
 
         #endregion
 
@@ -173,13 +157,15 @@ namespace bexio.net
             string orderBy = "name",
             int    offset  = 0,
             int    limit   = 1000)
-        {
-            return await GetAsync<List<BusinessActivity>>(
-                $"2.0/client_service?order_by={orderBy}&offset={offset}&limit={limit}");
-        }
+            => await GetAsync<List<BusinessActivity>>("2.0/client_service"
+                .AddQueryParameter("order_by", orderBy)
+                .AddQueryParameter("offset", offset)
+                .AddQueryParameter("limit", limit));
 
         #endregion
 
+
+        #region Internal Methods
 
         internal async Task<TResponse?> GetAsync<TResponse>(string url)
             where TResponse : class
@@ -193,7 +179,7 @@ namespace bexio.net
         }
 
 
-        internal async Task<TResponse?> PostAsync<TResponse>(string url, object? payload = null)
+        internal async Task<TResponse?> PostAsync<TResponse>(string url, object? payload)
             where TResponse : class
         {
             var httpRequestMessage = new HttpRequestMessage
@@ -208,12 +194,28 @@ namespace bexio.net
             return await ExecuteRequestInternal<TResponse>(httpRequestMessage);
         }
 
-        internal async Task<TResponse?> PatchAsync<TResponse>(string url, object? payload = null)
+        internal async Task<TResponse?> PatchAsync<TResponse>(string url, object? payload)
             where TResponse : class
         {
             var httpRequestMessage = new HttpRequestMessage
             {
                 Method     = HttpMethod.Patch,
+                RequestUri = new Uri(JoinUriSegments(_url, url)),
+                Content = new StringContent(
+                    JsonSerializer.Serialize(payload, _serializeOptions),
+                    Encoding,
+                    "application/json")
+            };
+            return await ExecuteRequestInternal<TResponse>(httpRequestMessage);
+        }
+
+
+        internal async Task<TResponse?> PutAsync<TResponse>(string url, object? payload)
+            where TResponse : class
+        {
+            var httpRequestMessage = new HttpRequestMessage
+            {
+                Method     = HttpMethod.Put,
                 RequestUri = new Uri(JoinUriSegments(_url, url)),
                 Content = new StringContent(
                     JsonSerializer.Serialize(payload, _serializeOptions),
@@ -291,5 +293,7 @@ namespace bexio.net
 
             return segments.Aggregate(uri, (current, segment) => $"{current.TrimEnd('/')}/{segment.TrimStart('/')}");
         }
+
+        #endregion
     }
 }
