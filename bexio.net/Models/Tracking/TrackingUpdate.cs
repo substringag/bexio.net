@@ -1,11 +1,8 @@
-using System.Collections.Generic;
-using Newtonsoft.Json;
-
-namespace bexio.net.Models
+namespace bexio.net.Models.Tracking
 {
-	public class TrackingUpdate
-	{
-		public string date { get; set; }
-		public string duration { get; set; }
-	}
+    public class TrackingUpdate
+    {
+        public string date     { get; set; }
+        public string duration { get; set; }
+    }
 }

@@ -1,10 +1,8 @@
-using System.Collections.Generic;
-
-namespace bexio.net.Models
+namespace bexio.net.Models.Timesheet
 {
-	public class TimesheetStatus
-	{
-		public string id { get; set; }
-		public string name { get; set; }
-	}
+    public class TimesheetStatus
+    {
+        public string id   { get; set; }
+        public string name { get; set; }
+    }
 }

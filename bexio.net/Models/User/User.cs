@@ -1,7 +1,6 @@
-namespace bexio.net.Models
+namespace bexio.net.Models.User
 {
     public class User : UserBase
     {
-        public string id { get; set; }
     }
 }

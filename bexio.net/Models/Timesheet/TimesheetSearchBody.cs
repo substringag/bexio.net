@@ -1,16 +1,16 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
-namespace bexio.net.Models
+namespace bexio.net.Models.Timesheet
 {
     public class TimesheetSearchBody
     {
-        [JsonProperty("field")]
+        [JsonPropertyName("field")]
         public string Field { get; set; }
-        
-        [JsonProperty("value")]
+
+        [JsonPropertyName("value")]
         public string Value { get; set; }
 
-        [JsonProperty("criteria")]
+        [JsonPropertyName("criteria")]
         public string Criteria { get; set; }
     }
 }

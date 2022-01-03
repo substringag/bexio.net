@@ -1,13 +1,10 @@
-using System.Collections.Generic;
-using Newtonsoft.Json;
-
-namespace bexio.net.Models
+namespace bexio.net.Models.Tracking
 {
-	public class Tracking
-	{
-		// [JsonIgnore]
-		public string type { get; set; }
-		public string date { get; set; }
-		public string duration { get; set; }
-	}
+    public class Tracking
+    {
+        // [JsonIgnore]
+        public string type     { get; set; }
+        public string date     { get; set; }
+        public string duration { get; set; }
+    }
 }
