@@ -19,6 +19,7 @@ namespace bexio.net
 {
     public class BexioApi
     {
+        // official version "2021-10-18" - see https://docs.bexio.com/#section/Changelog
         public const string VERSION = "1.0.0";
 
         private readonly string                  _url;
@@ -450,7 +451,6 @@ namespace bexio.net
         #endregion
 
         #endregion
-
 
         #region Contacts
 
@@ -936,7 +936,317 @@ namespace bexio.net
 
         #endregion
 
+        #region Sales Order Management
+
+        // TODO
+
+        // Fetch a list of quotes
+        // Create quote
+        // Search quotes
+        // Fetch a quote
+        // Edit a quote
+        // Delete a quote
+        // Issue a quote
+        // Revert issue a quote
+        // Accept a quote
+        // Decline a quote
+        // Reissue a quote
+        // Mark quote as sent
+        // Show PDF
+        // Send a quote
+        // Copy a quote
+        // Create order from quote
+        // Create invoice from quote
+
+        // Fetch a list of orders
+        // Create order
+        // Search orders
+        // Fetch an order
+        // Edit an order
+        // Delete an order
+        // Create delivery from order
+        // Create invoice from order
+        // Show PDF
+        // Show repetition
+        // Edit a repetition
+        // Delete a repetition
+
+        // Fetch a list of deliveries
+        // Fetch a delivery
+        // Issue a delivery
+
+        // Fetch a list of invoices
+        // Create invoice
+        // Search invoices
+        // Fetch an invoice
+        // Edit an invoice
+        // Delete an invoice
+        // Show PDF
+        // Copy a invoice
+        // Issue an invoice
+        // Sets issued invoice to draft
+        // Cancel an invoice
+        // Mark invoice as sent
+        // Send an invoice
+        // Fetch a list of payments
+        // Create payment
+        // Fetch a payment
+        // Delete a payment
+        // Fetch a list of reminders
+        // Create reminder
+        // Search invoice reminders
+        // Fetch a reminder
+        // Delete a reminder
+        // Mark reminder as sent
+        // Mark reminder as unsent
+        // Send a reminder
+        // Show reminder PDF
+
+        // Fetch a list of document settings
+
+        // Fetch a list of comments
+        // Create a comment
+        // Fetch a comment
+
+        // Fetch a list of default positions
+        // Create a default position
+        // Fetch a default position
+        // Edit a default position
+        // Delete a default position
+
+        // Fetch a list of item positions
+        // Create an item position
+        // Fetch an item position
+        // Edit an item position
+        // Delete a item position
+
+        // Fetch a list of text positions
+        // Create a text position
+        // Fetch a text position
+        // Edit a text position
+        // Delete a text position
+
+        // Fetch a list of subtotal positions
+        // Create a subtotal position
+        // Fetch a subtotal position
+        // Edit a subtotal position
+        // Delete a subtotal position
+
+        // Fetch a list of discount positions
+        // Create a discount position
+        // Fetch a discount position
+        // Edit a discount position
+        // Delete a discount position
+
+        // Fetch a list of pagebreak positions
+        // Create a pagebreak position
+        // Fetch a pagebreak position
+        // Edit a pagebreak position
+        // Delete a pagebreak position
+
+        // Fetch a list of sub positions
+        // Create a sub position
+        // Fetch a sub position
+        // Edit a sub position
+        // Delete a sub position
+
+        // List document templates
+
+        #endregion
+
+        #region Purchase
+
+        // TODO
+
+        // Get Bills
+        // Create new Bill
+        // Get Bill
+        // Update Bill
+        // Delete Bill
+        // Update Bill status
+        // Execute Bill action
+        // Validate whether document number is available or not
+
+        // Get Expenses
+        // Create new Expense
+        // Get Expense
+        // Update Expense
+        // Delete Expense
+        // Update Expense status
+        // Execute Expense action
+        // Validate whether document number is available or not
+
+        // Fetch a list of purchase orders
+        // Create a purchase order
+        // Fetch a single purchase order
+        // Update a single purchase order
+        // Delete a purchase order
+
+        // Retrieve Outgoing Payments
+        // Create new Outgoing Payment
+        // Get Outgoing Payment
+        // Delete Outgoing Payment
+        // Retrieve Outgoing Payments
+        // Create new Outgoing Payment
+        // Get Outgoing Payment
+        // Delete Outgoing Payment
+
+        #endregion
+
+        #region Accounting
+
+        // TODO
+
+        // Fetch a list of accounts
+        // Search Accounts
+
+        // Fetch a list of account groups
+
+        // Fetch a list of calendar years
+        // Create calendar year.
+        // Search calendar years
+        // Fetch a calendar year
+
+        // Fetch a list of business years
+        // Fetch a business year
+
+        // Fetch a list of currencies
+        // Create a currency
+        // Fetch a currency
+        // Delete a currency
+        // Update a currency
+        // Fetch exchange rates for currencies
+        // Fetch all possible currency codes
+
+        // Fetch a list of manual entries
+        // Create manual entry
+        // Get next reference number
+        // Fetch files of accounting entry line
+        // Add file to accounting entry line
+        // Fetch file of accounting entry line
+        // Delete file of accounting entry line
+
+        // Journal
+
+        // Fetch a list of taxes
+        // Fetch a tax
+        // Delete a tax
+
+        // Fetch a list of vat periods
+        // Fetch a vat period
+
+        #endregion
+
+        #region Banking
+
+        // TODO
+
+        // Fetch a list of bank accounts
+        // Fetch a single bank account
+
+        // Create IBAN payment
+        // Get IBAN payment
+        // Update IBAN payment
+
+        // Create ISR payment
+        // Get ISR payment
+        // Update ISR payment
+
+        // Create IS payment
+        // Get IS payment
+        // Update IS payment
+
+        // Create QR payment
+        // Get QR payment
+        // Update QR payment
+
+        // Fetch a list of payments
+        // Cancel a payment
+        // Delete a payment
+
+        #endregion
+
+        #region Items and Products
+
+        // TODO
+
+        // Fetch a list of items
+        // Create item
+        // Search items
+        // Fetch an item
+        // Edit an item
+        // Delete an item
+
+        // Fetch a list of stock locations
+        // Search stock locations
+
+        // Fetch a list of stock areas
+        // Search stock areas
+
+        #endregion
+
+
+        #region Files
+
+        // TODO
+
+        // Fetch a list of files
+        // Create new file
+        // Search files
+        // Get single file
+        // Delete a existing file
+        // Update existing file
+        // Download file
+        // Get file preview
+        // Show file usage
+
+        #endregion
+
+
         #region Other Endpoints
+
+        // TODO
+
+        // Fetch a list of company profiles
+        // Show company profile
+
+        // Fetch a list of countries
+        // Create country
+        // Search countries
+        // Fetch a country
+        // Edit a country
+        // Delete a country
+
+        // Fetch a list of languages
+        // Search languages
+
+        // Fetch a list of notes
+        // Create note
+        // Search notes
+        // Fetch a note
+        // Edit a note
+        // Delete a note
+
+        // Fetch a list of payment types
+        // Search payment types
+
+        // Get access information of logged in user
+
+        // Fetch a list of tasks
+        // Create task
+        // Search tasks
+        // Fetch a task
+        // Edit a task
+        // Delete a task
+        // Task priorities
+        // Task status
+
+        // Fetch a list of units
+        // Create unit
+        // Search units
+        // Fetch a unit
+        // Edit a unit
+        // Delete a unit
 
         #region Users
 
