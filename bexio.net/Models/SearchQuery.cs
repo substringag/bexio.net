@@ -20,5 +20,16 @@ namespace bexio.net.Models
         /// Possible values: See <see cref="bexio.net.Helpers.Constants.SearchCriteria"/>
         /// </summary>
         public string Criteria { get; set; } = "=";
+
+        public SearchQuery()
+        {
+        }
+
+        public SearchQuery(string field, string value, string criteria = "=")
+        {
+            Field    = field;
+            Value    = value;
+            Criteria = criteria;
+        }
     }
 }
