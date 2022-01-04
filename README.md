@@ -17,8 +17,7 @@ As this is still a work in progress, only some API calls are implemented and tes
 * [ ] Accounting
 * [ ] Banking
 * [ ] Items & Products
-* [ ] Projects & Time Tracking
-    * partially
+* [x] Projects & Time Tracking
 * [ ] Files
 * [ ] Other
     * [ ] Company Profile
@@ -29,8 +28,7 @@ As this is still a work in progress, only some API calls are implemented and tes
     * [ ] Permissions
     * [ ] Tasks
     * [ ] Units
-    * [ ] User Management
-        * partially
+    * [x] User Management
 
 ## Installation & Usage
 

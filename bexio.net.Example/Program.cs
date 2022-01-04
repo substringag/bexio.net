@@ -12,13 +12,46 @@ namespace bexio.net.Example
 
             var bexioApi = new BexioApi(token, unsuccessfulReturnStyle: UnsuccessfulReturnStyle.Throw);
 
-            Console.WriteLine("Users:");
-            foreach (var user in await bexioApi.GetUsers())
+            // Note: with "Throw" Style, we can ignore nullability in the following code. But make sure,
+            // you handle "UnsuccessfulException"'s properly, not like in this example ;)
+
+            var paginatedList = (await bexioApi.GetUsersAsync());
+            if (paginatedList != null)
             {
-                Console.WriteLine($"{user.SalutationType} {user.Firstname} {user.Lastname}");
-                Console.WriteLine($"    Is Superadmin: {user.IsSuperadmin}");
-                Console.WriteLine($"    Is Accountant: {user.IsAccountant}");
+                Console.WriteLine($"Users: Showing {paginatedList}");
+                foreach (var user in paginatedList!.List)
+                {
+                    Console.WriteLine($"{user.SalutationType} {user.Firstname} {user.Lastname}");
+                    Console.WriteLine($"    Is Superadmin: {user.IsSuperadmin}");
+                    Console.WriteLine($"    Is Accountant: {user.IsAccountant}");
+                }
             }
+
+            // await bexioApi.CreateBusinessActivityAsync(new BusinessActivity()
+            // {
+            //     Name = "test-api-124",
+            // });
+
+            Console.WriteLine("Business activities:");
+            foreach (var ba in (await bexioApi.GetBusinessActivitiesAsync())!)
+            {
+                Console.WriteLine($"{ba.Id}: {ba.Name} \t {ba.DefaultPricePerHour}");
+            }
+
+            Console.WriteLine("Projects:");
+            foreach (var project in (await bexioApi.GetProjectsAsync())!)
+            {
+                Console.WriteLine($"{project.Id}: {project.Uuid} {project.Name}");
+                Console.WriteLine("Project milestones:");
+                foreach (var milestone in (await bexioApi.GetProjectMilestonesAsync(project.Id))!)
+                {
+                    Console.WriteLine($"{milestone.Id}: {milestone.Name}");
+                }
+            }
+
+
+            Console.WriteLine();
+            Console.WriteLine("EOS"); // end of script
         }
     }
 }
