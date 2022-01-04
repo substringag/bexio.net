@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace bexio.net.Models
@@ -28,6 +29,10 @@ namespace bexio.net.Models
             Limit  = TotalCount = List.Count;
         }
 
-        public bool HasMore => Offset + List.Count < TotalCount;
+        public int  CurrentMaxCount => Offset + List.Count;
+        public bool HasMore         => Offset + List.Count < TotalCount;
+
+        public override string ToString()
+            => $"({Offset} to {Math.Min(Offset + List.Count, TotalCount)}) of {TotalCount} entries (Page size: {Limit})";
     }
 }

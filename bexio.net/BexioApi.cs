@@ -9,10 +9,9 @@ using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using bexio.net.Helpers;
 using bexio.net.Models;
-using bexio.net.Models.Other.FictionalUser;
+using bexio.net.Models.Other.User;
 using bexio.net.Models.Projects;
 using bexio.net.Models.Projects.Timesheet;
-using bexio.net.Models.User;
 using bexio.net.Responses;
 
 namespace bexio.net
@@ -142,7 +141,7 @@ namespace bexio.net
         /// <param name="offset"></param>
         /// <param name="limit">max: 2000</param>
         /// <returns></returns>
-        public async Task<List<Project>?> GetProjects(string orderBy = "id", int offset = 0, int limit = 500)
+        public async Task<List<Project>?> GetProjectsAsync(string orderBy = "id", int offset = 0, int limit = 500)
             => await GetAsync<List<Project>>("2.0/pr_project"
                 .AddQueryParameter("order_by", orderBy)
                 .AddQueryParameter("offset", offset)
@@ -153,7 +152,7 @@ namespace bexio.net
         /// </summary>
         /// <param name="project"></param>
         /// <returns></returns>
-        public async Task<Project?> CreateProject(Project project)
+        public async Task<Project?> CreateProjectAsync(Project project)
             => await PostAsync<Project>("2.0/pr_project", project);
 
         /// <summary>
@@ -164,10 +163,10 @@ namespace bexio.net
         /// <param name="offset"></param>
         /// <param name="limit">max: 2000</param>
         /// <returns></returns>
-        public async Task<List<Project>?> SearchProjects(List<SearchQuery> data,
-                                                         string            orderBy = "id",
-                                                         int               offset  = 0,
-                                                         int               limit   = 500)
+        public async Task<List<Project>?> SearchProjectsAsync(List<SearchQuery> data,
+                                                              string            orderBy = "id",
+                                                              int               offset  = 0,
+                                                              int               limit   = 500)
             => await PostAsync<List<Project>>("2.0/pr_project/search"
                     .AddQueryParameter("order_by", orderBy)
                     .AddQueryParameter("offset", offset)
@@ -179,7 +178,7 @@ namespace bexio.net
         /// </summary>
         /// <param name="projectId"></param>
         /// <returns></returns>
-        public async Task<Project?> GetProject(int projectId)
+        public async Task<Project?> GetProjectAsync(int projectId)
             => await GetAsync<Project>($"2.0/pr_project/{projectId}");
 
         /// <summary>
@@ -188,7 +187,7 @@ namespace bexio.net
         /// <param name="projectId"></param>
         /// <param name="project"></param>
         /// <returns></returns>
-        public async Task<Project?> UpdateProject(int projectId, Project project)
+        public async Task<Project?> UpdateProjectAsync(int projectId, Project project)
             => await PostAsync<Project>($"2.0/pr_project/{projectId}", project);
 
         /// <summary>
@@ -196,7 +195,7 @@ namespace bexio.net
         /// </summary>
         /// <param name="projectId"></param>
         /// <returns></returns>
-        public async Task<bool?> DeleteProject(int projectId)
+        public async Task<bool?> DeleteProjectAsync(int projectId)
             => await DeleteAsync($"2.0/pr_project/{projectId}");
 
         /// <summary>
@@ -204,7 +203,7 @@ namespace bexio.net
         /// </summary>
         /// <param name="projectId"></param>
         /// <returns></returns>
-        public async Task<bool?> ArchiveProject(int projectId)
+        public async Task<bool?> ArchiveProjectAsync(int projectId)
             => (await PostAsync<BooleanResponse>($"2.0/pr_project/{projectId}/archive", null))?.Success;
 
         /// <summary>
@@ -212,14 +211,14 @@ namespace bexio.net
         /// </summary>
         /// <param name="projectId"></param>
         /// <returns></returns>
-        public async Task<bool?> UnarchiveProject(int projectId)
+        public async Task<bool?> UnarchiveProjectAsync(int projectId)
             => (await PostAsync<BooleanResponse>($"2.0/pr_project/{projectId}/reactivate", null))?.Success;
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public async Task<List<SimpleDictionaryEntry>?> GetProjectStatuses()
+        public async Task<List<SimpleDictionaryEntry>?> GetProjectStatusesAsync()
             => await GetAsync<List<SimpleDictionaryEntry>>("2.0/pr_project_state");
 
         /// <summary>
@@ -227,20 +226,25 @@ namespace bexio.net
         /// </summary>
         /// <param name="projectId"></param>
         /// <returns></returns>
-        public async Task<string?> GetProjectStatus(int projectId)
-            => (await GetProjectStatuses())?.Find(e => e.Id == projectId)?.Name;
+        public async Task<string?> GetProjectStatusAsync(int projectId)
+            => (await GetProjectStatusesAsync())?.Find(e => e.Id == projectId)?.Name;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="orderBy">"id" or "name" // may append _desc</param>
         /// <returns></returns>
-        public async Task<List<SimpleDictionaryEntry>?> GetProjectTypes(string orderBy = "id")
+        public async Task<List<SimpleDictionaryEntry>?> GetProjectTypesAsync(string orderBy = "id")
             => await GetAsync<List<SimpleDictionaryEntry>>("2.0/pr_project_type"
                 .AddQueryParameter("order_by", orderBy));
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
         public async Task<string?> GetProjectType(int projectId)
-            => (await GetProjectTypes())?.Find(e => e.Id == projectId)?.Name;
+            => (await GetProjectTypesAsync())?.Find(e => e.Id == projectId)?.Name;
 
         /// <summary>
         /// 
@@ -249,9 +253,9 @@ namespace bexio.net
         /// <param name="limit">max: 2000</param>
         /// <param name="offset"></param>
         /// <returns></returns>
-        public async Task<List<Milestone>?> GetProjectMilestones(int projectId,
-                                                                 int limit  = 500,
-                                                                 int offset = 0)
+        public async Task<List<Milestone>?> GetProjectMilestonesAsync(int projectId,
+                                                                      int limit  = 500,
+                                                                      int offset = 0)
             => await GetAsync<List<Milestone>>($"3.0/projects/{projectId}/milestones"
                 .AddQueryParameter("limit", limit)
                 .AddQueryParameter("offset", offset));
@@ -264,7 +268,7 @@ namespace bexio.net
         /// <param name="projectId"></param>
         /// <param name="milestone"></param>
         /// <returns></returns>
-        public async Task<Milestone?> CreateMilestone(int projectId, Milestone milestone)
+        public async Task<Milestone?> CreateMilestoneAsync(int projectId, Milestone milestone)
             => await PostAsync<Milestone>($"3.0/projects/{projectId}/milestones", milestone);
 
         /// <summary>
@@ -273,7 +277,7 @@ namespace bexio.net
         /// <param name="projectId"></param>
         /// <param name="milestoneId"></param>
         /// <returns></returns>
-        public async Task<Milestone?> GetMilestone(int projectId, int milestoneId)
+        public async Task<Milestone?> GetMilestoneAsync(int projectId, int milestoneId)
             => await GetAsync<Milestone>($"3.0/projects/{projectId}/milestones/{milestoneId}");
 
         /// <summary>
@@ -283,7 +287,7 @@ namespace bexio.net
         /// <param name="milestoneId"></param>
         /// <param name="milestone"></param>
         /// <returns></returns>
-        public async Task<Milestone?> UpdateMilestone(int projectId, int milestoneId, Milestone milestone)
+        public async Task<Milestone?> UpdateMilestoneAsync(int projectId, int milestoneId, Milestone milestone)
             => await PostAsync<Milestone>($"3.0/projects/{projectId}/milestones/{milestoneId}", milestone);
 
         /// <summary>
@@ -292,7 +296,7 @@ namespace bexio.net
         /// <param name="projectId"></param>
         /// <param name="milestoneId"></param>
         /// <returns></returns>
-        public async Task<bool?> DeleteMilestone(int projectId, int milestoneId)
+        public async Task<bool?> DeleteMilestoneAsync(int projectId, int milestoneId)
             => await DeleteAsync($"3.0/projects/{projectId}/milestones/{milestoneId}");
 
         /// <summary>
@@ -302,14 +306,12 @@ namespace bexio.net
         /// <param name="limit">max: 2000</param>
         /// <param name="offset"></param>
         /// <returns></returns>
-        public async Task<List<WorkPackage>?> GetWorkPackages(int projectId,
-                                                              int limit  = 500,
-                                                              int offset = 0)
-            => await GetAsync<List<WorkPackage>>($"3.0/projects/{projectId}/packages"
+        public async Task<PaginatedList<WorkPackage>?> GetWorkPackagesAsync(int projectId,
+                                                                            int limit  = 500,
+                                                                            int offset = 0)
+            => await GetPaginatedAsync<WorkPackage>($"3.0/projects/{projectId}/packages"
                 .AddQueryParameter("limit", limit)
                 .AddQueryParameter("offset", offset));
-        // TODO this method returns a paginated list and returns header values.
-        // see https://docs.bexio.com/#operation/ListWorkPackages
 
         /// <summary>
         /// 
@@ -317,7 +319,7 @@ namespace bexio.net
         /// <param name="projectId"></param>
         /// <param name="workPackage"></param>
         /// <returns></returns>
-        public async Task<WorkPackage?> CreateWorkPackage(int projectId, WorkPackage workPackage)
+        public async Task<WorkPackage?> CreateWorkPackageAsync(int projectId, WorkPackage workPackage)
             => await PostAsync<WorkPackage>($"3.0/projects/{projectId}/packages", workPackage);
 
         /// <summary>
@@ -326,7 +328,7 @@ namespace bexio.net
         /// <param name="projectId"></param>
         /// <param name="workPackageId"></param>
         /// <returns></returns>
-        public async Task<WorkPackage?> GetWorkPackage(int projectId, int workPackageId)
+        public async Task<WorkPackage?> GetWorkPackageAsync(int projectId, int workPackageId)
             => await GetAsync<WorkPackage>($"3.0/projects/{projectId}/packages/{workPackageId}");
 
         /// <summary>
@@ -336,7 +338,9 @@ namespace bexio.net
         /// <param name="workPackageId"></param>
         /// <param name="workPackage"></param>
         /// <returns></returns>
-        public async Task<WorkPackage?> UpdateWorkPackage(int projectId, int workPackageId, WorkPackage workPackage)
+        public async Task<WorkPackage?> UpdateWorkPackageAsync(int         projectId,
+                                                               int         workPackageId,
+                                                               WorkPackage workPackage)
             => await PostAsync<WorkPackage>($"3.0/projects/{projectId}/packages/{workPackageId}", workPackage);
 
         /// <summary>
@@ -345,7 +349,7 @@ namespace bexio.net
         /// <param name="projectId"></param>
         /// <param name="workPackageId"></param>
         /// <returns></returns>
-        public async Task<bool?> DeleteWorkPackage(int projectId, int workPackageId)
+        public async Task<bool?> DeleteWorkPackageAsync(int projectId, int workPackageId)
             => await DeleteAsync($"3.0/projects/{projectId}/packages/{workPackageId}");
 
 
@@ -358,9 +362,9 @@ namespace bexio.net
         /// <param name="offset"></param>
         /// <param name="limit">max: 2000</param>
         /// <returns></returns>
-        public async Task<List<TimesheetFetched>?> GetTimesheets(string orderBy = "id",
-                                                                 int    offset  = 0,
-                                                                 int    limit   = 500)
+        public async Task<List<TimesheetFetched>?> GetTimesheetsAsync(string orderBy = "id",
+                                                                      int    offset  = 0,
+                                                                      int    limit   = 500)
             => await GetAsync<List<TimesheetFetched>>("2.0/timesheet"
                 .AddQueryParameter("order_by", orderBy)
                 .AddQueryParameter("offset", offset));
@@ -370,7 +374,7 @@ namespace bexio.net
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public async Task<TimesheetFetched?> CreateTimesheet(Timesheet data)
+        public async Task<TimesheetFetched?> CreateTimesheetAsync(Timesheet data)
             => await PostAsync<TimesheetFetched>("2.0/timesheet", data);
 
         /// <summary>
@@ -383,10 +387,10 @@ namespace bexio.net
         /// <param name="offset"></param>
         /// <param name="limit">max: 2000</param>
         /// <returns></returns>
-        public async Task<List<TimesheetFetched>?> SearchTimesheets(List<SearchQuery> data,
-                                                                    string            orderBy = "id",
-                                                                    int               offset  = 0,
-                                                                    int               limit   = 500)
+        public async Task<List<TimesheetFetched>?> SearchTimesheetsAsync(List<SearchQuery> data,
+                                                                         string            orderBy = "id",
+                                                                         int               offset  = 0,
+                                                                         int               limit   = 500)
             => await PostAsync<List<TimesheetFetched>>("2.0/timesheet/search"
                     .AddQueryParameter("order_by", orderBy)
                     .AddQueryParameter("offset", offset)
@@ -398,7 +402,7 @@ namespace bexio.net
         /// </summary>
         /// <param name="timesheetId"></param>
         /// <returns></returns>
-        public async Task<TimesheetFetched?> GetTimesheet(int timesheetId)
+        public async Task<TimesheetFetched?> GetTimesheetAsync(int timesheetId)
             => await GetAsync<TimesheetFetched>($"/2.0/timesheet/{timesheetId}");
 
         /// <summary>
@@ -407,7 +411,7 @@ namespace bexio.net
         /// <param name="data"></param>
         /// <param name="timesheetId"></param>
         /// <returns></returns>
-        public async Task<TimesheetFetched?> UpdateTimesheet(Timesheet data, int timesheetId)
+        public async Task<TimesheetFetched?> UpdateTimesheetAsync(Timesheet data, int timesheetId)
             => await PostAsync<TimesheetFetched>($"/2.0/timesheet/{timesheetId.ToString()}", data);
 
         /// <summary>
@@ -415,7 +419,7 @@ namespace bexio.net
         /// </summary>
         /// <param name="timesheetId"></param>
         /// <returns></returns>
-        public async Task<bool?> DeleteTimesheet(int timesheetId)
+        public async Task<bool?> DeleteTimesheetAsync(int timesheetId)
             => await DeleteAsync($"2.0/timesheet/{timesheetId.ToString()}");
 
         /// <summary>
@@ -425,9 +429,9 @@ namespace bexio.net
         /// <param name="offset"></param>
         /// <param name="limit">max: 2000</param>
         /// <returns></returns>
-        public async Task<List<TimesheetStatus>?> GetTimesheetStatus(string orderBy = "id",
-                                                                     int    offset  = 0,
-                                                                     int    limit   = 500)
+        public async Task<List<TimesheetStatus>?> GetTimesheetStatusAsync(string orderBy = "id",
+                                                                          int    offset  = 0,
+                                                                          int    limit   = 500)
             => await GetAsync<List<TimesheetStatus>>("2.0/timesheet_status"
                 .AddQueryParameter("order_by", orderBy)
                 .AddQueryParameter("offset", offset)
@@ -444,8 +448,8 @@ namespace bexio.net
         /// <param name="offset"></param>
         /// <param name="limit">max: 2000</param>
         /// <returns></returns>
-        public async Task<List<BusinessActivity>?> GetBusinessActivities(
-            string orderBy = "name",
+        public async Task<List<BusinessActivity>?> GetBusinessActivitiesAsync(
+            string orderBy = "id",
             int    offset  = 0,
             int    limit   = 500)
             => await GetAsync<List<BusinessActivity>>("2.0/client_service"
@@ -458,7 +462,7 @@ namespace bexio.net
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public async Task<BusinessActivity?> CreateBusinessActivity(BusinessActivity data)
+        public async Task<BusinessActivity?> CreateBusinessActivityAsync(BusinessActivity data)
             => await PostAsync<BusinessActivity>("2.0/client_service", data);
 
         /// <summary>
@@ -469,10 +473,10 @@ namespace bexio.net
         /// <param name="offset"></param>
         /// <param name="limit">max: 2000</param>
         /// <returns></returns>
-        public async Task<List<BusinessActivity>?> SearchBusinessActivities(List<SearchQuery> data,
-                                                                            string            orderBy = "id",
-                                                                            int               offset  = 0,
-                                                                            int               limit   = 500)
+        public async Task<List<BusinessActivity>?> SearchBusinessActivitiesAsync(List<SearchQuery> data,
+            string                                                                                 orderBy = "id",
+            int                                                                                    offset  = 0,
+            int                                                                                    limit   = 500)
             => await PostAsync<List<BusinessActivity>>("2.0/client_service/search"
                     .AddQueryParameter("order_by", orderBy)
                     .AddQueryParameter("offset", offset)
@@ -490,7 +494,7 @@ namespace bexio.net
         /// <param name="offset"></param>
         /// <param name="limit">max: 2000</param>
         /// <returns></returns>
-        public async Task<List<SimpleDictionaryEntry>?> GetCommunicationTypes(
+        public async Task<List<SimpleDictionaryEntry>?> GetCommunicationTypesAsync(
             string orderBy = "id",
             int    offset  = 0,
             int    limit   = 500)
@@ -507,10 +511,10 @@ namespace bexio.net
         /// <param name="offset"></param>
         /// <param name="limit">max: 2000</param>
         /// <returns></returns>
-        public async Task<List<SimpleDictionaryEntry>?> SearchCommunicationTypes(List<SearchQuery> data,
-            string                                                                                 orderBy = "id",
-            int                                                                                    offset  = 0,
-            int                                                                                    limit   = 500)
+        public async Task<List<SimpleDictionaryEntry>?> SearchCommunicationTypesAsync(List<SearchQuery> data,
+            string                                                                                      orderBy = "id",
+            int                                                                                         offset  = 0,
+            int                                                                                         limit   = 500)
             => await PostAsync<List<SimpleDictionaryEntry>>("2.0/communication_kind/search"
                     .AddQueryParameter("order_by", orderBy)
                     .AddQueryParameter("offset", offset)
@@ -529,10 +533,10 @@ namespace bexio.net
         /// 
         /// </summary>
         /// <param name="offset"></param>
-        /// <param name="limit"></param>
+        /// <param name="limit">max: 2000</param>
         /// <returns></returns>
-        public async Task<List<User>?> GetUsers(int offset = 0, int limit = 1000)
-            => await GetAsync<List<User>>("3.0/users"
+        public async Task<PaginatedList<User>?> GetUsersAsync(int offset = 0, int limit = 500)
+            => await GetPaginatedAsync<User>("3.0/users"
                 .AddQueryParameter("offset", offset)
                 .AddQueryParameter("limit", limit));
 
@@ -541,11 +545,10 @@ namespace bexio.net
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public async Task<User?> GetUser(int userId)
+        public async Task<User?> GetUserAsync(int userId)
             => await GetAsync<User>($"3.0/users/{userId.ToString()}");
 
         #endregion
-
 
         #region FictionalUsers
 
@@ -556,8 +559,8 @@ namespace bexio.net
         /// <param name="offset"></param>
         /// <param name="limit"></param>
         /// <returns></returns>
-        public async Task<List<FictionalUser>?> GetFictionalUsers(int offset = 0, int limit = 1000)
-            => await GetAsync<List<FictionalUser>>("3.0/fictional_users"
+        public async Task<PaginatedList<FictionalUser>?> GetFictionalUsersAsync(int offset = 0, int limit = 500)
+            => await GetPaginatedAsync<FictionalUser>("3.0/fictional_users"
                 .AddQueryParameter("offset", offset)
                 .AddQueryParameter("limit", limit));
 
@@ -566,7 +569,7 @@ namespace bexio.net
         /// </summary>
         /// <param name="fictionalUserId"></param>
         /// <returns></returns>
-        public async Task<FictionalUser?> GetFictionalUser(int fictionalUserId)
+        public async Task<FictionalUser?> GetFictionalUserAsync(int fictionalUserId)
             => await GetAsync<FictionalUser>($"3.0/fictional_users/{fictionalUserId.ToString()}");
 
         /// <summary>
@@ -574,7 +577,7 @@ namespace bexio.net
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public async Task<FictionalUser?> InsertFictionalUser(FictionalUserBase data)
+        public async Task<FictionalUser?> InsertFictionalUserAsync(FictionalUser data)
             => await PostAsync<FictionalUser>("3.0/fictional_users/", data);
 
         /// <summary>
@@ -583,7 +586,7 @@ namespace bexio.net
         /// <param name="data"></param>
         /// <param name="fictionalUserId"></param>
         /// <returns></returns>
-        public async Task<FictionalUser?> UpdateFictionalUser(FictionalUserBase data, int fictionalUserId = -1)
+        public async Task<FictionalUser?> UpdateFictionalUserAsync(FictionalUser data, int fictionalUserId = -1)
             => await PatchAsync<FictionalUser>($"3.0/fictional_users/{fictionalUserId.ToString()}", data);
 
         /// <summary>
@@ -591,7 +594,7 @@ namespace bexio.net
         /// </summary>
         /// <param name="fictionalUserId"></param>
         /// <returns></returns>
-        public async Task<bool?> DeleteFictionalUser(int fictionalUserId)
+        public async Task<bool?> DeleteFictionalUserAsync(int fictionalUserId)
             => await DeleteAsync($"3.0/fictional_users/{fictionalUserId.ToString()}");
 
         #endregion
