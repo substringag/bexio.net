@@ -2,9 +2,8 @@ using System;
 using System.Globalization;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using bexio.net.Models;
 
-namespace bexio.net.Helpers
+namespace bexio.net.Converter
 {
     /// <summary>
     /// Since Bexio returns a number in string format or null,

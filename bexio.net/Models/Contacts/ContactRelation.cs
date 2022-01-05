@@ -2,7 +2,7 @@ using System;
 
 namespace bexio.net.Models.Contacts
 {
-    public class ContactRelation
+    public class ContactRelation : IHasPrimaryKey
     {
         public int       Id           { get; set; } = default;
         public int       ContactId    { get; set; }

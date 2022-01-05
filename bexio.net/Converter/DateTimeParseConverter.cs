@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace bexio.net.Helpers
+namespace bexio.net.Converter
 {
     /// <summary>
     /// This converter uses DateTime.Parse to convert a string to a DateTime.

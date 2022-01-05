@@ -6,7 +6,7 @@ using System.Text.Json.Serialization;
 
 namespace bexio.net.Models.Contacts
 {
-    public class Contact
+    public class Contact : IHasPrimaryKey
     {
         public int     Id            { get; set; } = default;
         public string? Nr            { get; set; }

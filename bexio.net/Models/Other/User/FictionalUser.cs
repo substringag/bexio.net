@@ -1,6 +1,6 @@
 namespace bexio.net.Models.Other.User
 {
-    public class FictionalUser
+    public class FictionalUser : IHasPrimaryKey
     {
         public int    Id             { get; set; } = default;
         public string SalutationType { get; set; } = "";

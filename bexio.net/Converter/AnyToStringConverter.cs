@@ -2,7 +2,7 @@ using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace bexio.net.Helpers
+namespace bexio.net.Converter
 {
     /// <summary>
     /// This Converter can read any property type and convert it to a string.
