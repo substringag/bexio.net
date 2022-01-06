@@ -4,6 +4,6 @@ namespace bexio.net.Models.Sales
     {
         public int?    DeliveryAddressType { get; set; }
         public string? DeliveryAddress     { get; set; }
-        public bool    IsRecurring         { get; set; }
+        public bool?   IsRecurring         { get; set; }
     }
 }

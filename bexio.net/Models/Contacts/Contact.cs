@@ -10,7 +10,7 @@ namespace bexio.net.Models.Contacts
     {
         public int     Id            { get; set; } = default;
         public string? Nr            { get; set; }
-        public int     ContactTypeId { get; set; }
+        public int     ContactTypeId { get; set; } // 1 company, 2 person
 
         [JsonPropertyName("name_1")]
         public string Name1 { get; set; } = "";
@@ -53,6 +53,7 @@ namespace bexio.net.Models.Contacts
         /// <summary>
         /// A list of foreign keys.
         /// </summary>
+        [JsonIgnore]
         public IEnumerable<int> ContactGroupIdsList =>
             ContactGroupIds?.Split(',').Select(int.Parse) ?? new List<int>();
 
@@ -66,6 +67,7 @@ namespace bexio.net.Models.Contacts
         /// A list of foreign keys.
         /// Also called contact_sector
         /// </summary>
+        [JsonIgnore]
         public IEnumerable<int> ContactBranchIdsList =>
             ContactBranchIds?.Split(',').Select(int.Parse) ?? new List<int>();
 

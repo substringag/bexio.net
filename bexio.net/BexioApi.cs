@@ -11,6 +11,7 @@ using bexio.net.Converter;
 using bexio.net.Helpers;
 using bexio.net.Models;
 using bexio.net.Models.Contacts;
+using bexio.net.Models.Items;
 using bexio.net.Models.Other.User;
 using bexio.net.Models.Projects;
 using bexio.net.Models.Projects.Timesheet;
@@ -1093,13 +1094,36 @@ namespace bexio.net
         public async Task<bool?> DeleteOrderAsync(int orderId)
             => await DeleteAsync($"2.0/kb_order/{orderId}");
 
-        // Create delivery from order
-        public async Task<Delivery?> CreateDeliveryFromOrderAsync(int orderId, Delivery delivery)
-            => await PostAsync<Delivery>($"2.0/kb_order/{orderId}/delivery", delivery);
+        /// <summary>
+        /// Create delivery from order.
+        /// Note that each article can only be shipped once. So if you call this method
+        /// without the second parameter, the delivery will be created for all articles,
+        /// that means you can not execute this method a second time (unless the amount of
+        /// articles in the offer has changed).
+        /// </summary>
+        /// <param name="orderId"></param>
+        /// <param name="onlySpecificPositions"></param>
+        /// <returns></returns>
+        public async Task<Delivery?> CreateDeliveryFromOrderAsync(int                  orderId,
+                                                                  List<PositionEntry>? onlySpecificPositions = null)
+            => await PostAsync<Delivery>($"2.0/kb_order/{orderId}/delivery",
+                onlySpecificPositions == null || onlySpecificPositions.Count == 0
+                    ? null
+                    : new { positions = onlySpecificPositions });
 
-        // Create invoice from order
-        public async Task<Invoice?> CreateInvoiceFromOrderAsync(int orderId, Invoice invoice)
-            => await PostAsync<Invoice>($"2.0/kb_order/{orderId}/invoice", invoice);
+        /// <summary>
+        /// Create invoice from order.
+        /// Note that you can not invoice an order a second time.
+        /// </summary>
+        /// <param name="orderId"></param>
+        /// <param name="onlySpecificPositions"></param>
+        /// <returns></returns>
+        public async Task<Invoice?> CreateInvoiceFromOrderAsync(int                  orderId,
+                                                                List<PositionEntry>? onlySpecificPositions = null)
+            => await PostAsync<Invoice>($"2.0/kb_order/{orderId}/invoice",
+                onlySpecificPositions == null || onlySpecificPositions.Count == 0
+                    ? null
+                    : new { positions = onlySpecificPositions });
 
         // Show PDF
         public async Task<FileContentResponse?> GetOrderPdfAsync(int orderId)
@@ -1433,6 +1457,9 @@ namespace bexio.net
         // Create item
         // Search items
         // Fetch an item
+        public async Task<Article?> GetArticleAsync(int articleId)
+            => await GetAsync<Article>($"2.0/article/{articleId}");
+
         // Edit an item
         // Delete an item
 
@@ -1599,6 +1626,7 @@ namespace bexio.net
         internal async Task<TResponse?> PostAsync<TResponse>(string url, object? payload)
             where TResponse : class
         {
+            Console.WriteLine("#> BODY: " + JsonSerializer.Serialize(payload, _serializeOptions));
             var httpRequestMessage = new HttpRequestMessage
             {
                 Method     = HttpMethod.Post,

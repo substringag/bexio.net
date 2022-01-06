@@ -34,7 +34,31 @@ namespace bexio.net.Converter
 
         public override void Write(Utf8JsonWriter writer, PositionBase value, JsonSerializerOptions options)
         {
-            JsonSerializer.Serialize(writer, value);
+            // We need to cast here, so that we dont cause a recursive loop, when
+            // this converter is used again and again...
+            switch (value.Type)
+            {
+                case PositionTypes.Custom:
+                    JsonSerializer.Serialize(writer, value as PositionCustomExtended, options);
+                    break;
+                case PositionTypes.Article:
+                    JsonSerializer.Serialize(writer, value as PositionArticleExtended, options);
+                    break;
+                case PositionTypes.Text:
+                    JsonSerializer.Serialize(writer, value as PositionTextExtended, options);
+                    break;
+                case PositionTypes.Subtotal:
+                    JsonSerializer.Serialize(writer, value as PositionSubtotalExtended, options);
+                    break;
+                case PositionTypes.Pagebreak:
+                    JsonSerializer.Serialize(writer, value as PositionPagebreakExtended, options);
+                    break;
+                case PositionTypes.Discount:
+                    JsonSerializer.Serialize(writer, value as PositionDiscountExtended, options);
+                    break;
+                default:
+                    throw new JsonException();
+            }
         }
 
         /// <summary>
