@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="Models\Other" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Models\Projects\Timesheet\TimesheetBase.cs" />
+      <Compile Remove="Models\Projects\Timesheet\TimesheetUpdate.cs" />
+      <Compile Remove="Models\Projects\CommunicationType.cs" />
+      <Compile Remove="Models\Other\User\UserBase.cs" />
+    </ItemGroup>
+</Project>

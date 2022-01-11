@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bexio.net", "bexio.net\bexio.net.csproj", "{BDB23642-B593-41B1-B033-5595B04A63D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bexio.net.Example", "bexio.net.Example\bexio.net.Example.csproj", "{F7E00862-AD19-499D-B94B-B18657973F1F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BDB23642-B593-41B1-B033-5595B04A63D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDB23642-B593-41B1-B033-5595B04A63D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDB23642-B593-41B1-B033-5595B04A63D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDB23642-B593-41B1-B033-5595B04A63D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7E00862-AD19-499D-B94B-B18657973F1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7E00862-AD19-499D-B94B-B18657973F1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7E00862-AD19-499D-B94B-B18657973F1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7E00862-AD19-499D-B94B-B18657973F1F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
