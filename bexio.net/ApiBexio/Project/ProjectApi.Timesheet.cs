@@ -6,7 +6,7 @@ using bexio.net.Models.Projects.Timesheet;
 
 namespace bexio.net
 {
-	public partial class BexioApi
+	public partial class ProjectApi
 	{
  		#region timesheet
 
@@ -20,7 +20,7 @@ namespace bexio.net
         public async Task<List<TimesheetFetched>?> GetTimesheetsAsync(string orderBy = "id",
                                                                       int    offset  = 0,
                                                                       int    limit   = 500)
-            => await GetAsync<List<TimesheetFetched>>("2.0/timesheet"
+            => await _api.GetAsync<List<TimesheetFetched>>("2.0/timesheet"
                 .AddQueryParameter("order_by", orderBy)
                 .AddQueryParameter("offset", offset));
 
@@ -30,7 +30,7 @@ namespace bexio.net
         /// <param name="data"></param>
         /// <returns></returns>
         public async Task<TimesheetFetched?> CreateTimesheetAsync(Timesheet data)
-            => await PostAsync<TimesheetFetched>("2.0/timesheet", data);
+            => await _api.PostAsync<TimesheetFetched>("2.0/timesheet", data);
 
         /// <summary>
         /// Gets a list of timesheets that match the given filter.<br/>
@@ -46,7 +46,7 @@ namespace bexio.net
                                                                          string            orderBy = "id",
                                                                          int               offset  = 0,
                                                                          int               limit   = 500)
-            => await PostAsync<List<TimesheetFetched>>("2.0/timesheet/search"
+            => await _api.PostAsync<List<TimesheetFetched>>("2.0/timesheet/search"
                     .AddQueryParameter("order_by", orderBy)
                     .AddQueryParameter("offset", offset)
                     .AddQueryParameter("limit", limit),
@@ -58,7 +58,7 @@ namespace bexio.net
         /// <param name="timesheetId"></param>
         /// <returns></returns>
         public async Task<TimesheetFetched?> GetTimesheetAsync(int timesheetId)
-            => await GetAsync<TimesheetFetched>($"/2.0/timesheet/{timesheetId}");
+            => await _api.GetAsync<TimesheetFetched>($"/2.0/timesheet/{timesheetId}");
 
         /// <summary>
         /// 
@@ -67,7 +67,7 @@ namespace bexio.net
         /// <param name="timesheetId"></param>
         /// <returns></returns>
         public async Task<TimesheetFetched?> UpdateTimesheetAsync(Timesheet data, int timesheetId)
-            => await PostAsync<TimesheetFetched>($"/2.0/timesheet/{timesheetId.ToString()}", data);
+            => await _api.PostAsync<TimesheetFetched>($"/2.0/timesheet/{timesheetId.ToString()}", data);
 
         /// <summary>
         /// 
@@ -75,7 +75,7 @@ namespace bexio.net
         /// <param name="timesheetId"></param>
         /// <returns></returns>
         public async Task<bool?> DeleteTimesheetAsync(int timesheetId)
-            => await DeleteAsync($"2.0/timesheet/{timesheetId.ToString()}");
+            => await _api.DeleteAsync($"2.0/timesheet/{timesheetId.ToString()}");
 
         /// <summary>
         /// 
@@ -87,7 +87,7 @@ namespace bexio.net
         public async Task<List<SimpleDictionaryEntry>?> GetTimesheetStatusAsync(string orderBy = "id",
                                                                                 int    offset  = 0,
                                                                                 int    limit   = 500)
-            => await GetAsync<List<SimpleDictionaryEntry>>("2.0/timesheet_status"
+            => await _api.GetAsync<List<SimpleDictionaryEntry>>("2.0/timesheet_status"
                 .AddQueryParameter("order_by", orderBy)
                 .AddQueryParameter("offset", offset)
                 .AddQueryParameter("limit", limit));

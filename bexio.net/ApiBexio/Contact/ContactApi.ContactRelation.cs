@@ -22,7 +22,7 @@ using bexio.net.Responses;
 
 namespace bexio.net
 {
-	public partial class BexioApi
+	public partial class ContactApi
 	{
 		#region Contact relations
 
@@ -36,7 +36,7 @@ namespace bexio.net
         public async Task<List<ContactRelation>?> GetContactRelationsAsync(string orderBy = "id",
                                                                            int    offset  = 0,
                                                                            int    limit   = 500)
-            => await GetAsync<List<ContactRelation>>("2.0/contact_relation"
+            => await _api.GetAsync<List<ContactRelation>>("2.0/contact_relation"
                 .AddQueryParameter("order_by", orderBy)
                 .AddQueryParameter("offset", offset)
                 .AddQueryParameter("limit", limit));
@@ -47,7 +47,7 @@ namespace bexio.net
         /// <param name="data"></param>
         /// <returns></returns>
         public async Task<ContactRelation?> CreateContactRelationAsync(ContactRelation data)
-            => await PostAsync<ContactRelation>("2.0/contact_relation", data);
+            => await _api.PostAsync<ContactRelation>("2.0/contact_relation", data);
 
         /// <summary>
         /// Searchable fields: "contact_id" or "contact_sub_id" or "updated_at"
@@ -61,7 +61,7 @@ namespace bexio.net
                                                                               string            orderBy = "id",
                                                                               int               offset  = 0,
                                                                               int               limit   = 500)
-            => await PostAsync<List<ContactRelation>>("2.0/contact_relation/search"
+            => await _api.PostAsync<List<ContactRelation>>("2.0/contact_relation/search"
                     .AddQueryParameter("order_by", orderBy)
                     .AddQueryParameter("offset", offset)
                     .AddQueryParameter("limit", limit),
@@ -73,7 +73,7 @@ namespace bexio.net
         /// <param name="contactRelationId"></param>
         /// <returns></returns>
         public async Task<ContactRelation?> GetContactRelationAsync(int contactRelationId)
-            => await GetAsync<ContactRelation>("2.0/contact_relation/" + contactRelationId);
+            => await _api.GetAsync<ContactRelation>("2.0/contact_relation/" + contactRelationId);
 
         /// <summary>
         /// 
@@ -82,7 +82,7 @@ namespace bexio.net
         /// <param name="data"></param>
         /// <returns></returns>
         public async Task<ContactRelation?> UpdateContactRelationAsync(int contactRelationId, ContactRelation data)
-            => await PostAsync<ContactRelation>("2.0/contact_relation/" + contactRelationId, data);
+            => await _api.PostAsync<ContactRelation>("2.0/contact_relation/" + contactRelationId, data);
 
         /// <summary>
         /// 
@@ -90,7 +90,7 @@ namespace bexio.net
         /// <param name="contactRelationId"></param>
         /// <returns></returns>
         public async Task<bool?> DeleteContactRelationAsync(int contactRelationId)
-            => await DeleteAsync("2.0/contact_relation/" + contactRelationId);
+            => await _api.DeleteAsync("2.0/contact_relation/" + contactRelationId);
 
         #endregion
 	}

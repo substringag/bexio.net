@@ -6,7 +6,7 @@ using bexio.net.Models.Contacts;
 
 namespace bexio.net
 {
-	public partial class BexioApi
+	public partial class ContactApi
 	{
 		#region Additional addresses
 
@@ -22,7 +22,7 @@ namespace bexio.net
                                                                                 string orderBy = "id",
                                                                                 int    offset  = 0,
                                                                                 int    limit   = 500)
-            => await GetAsync<List<AdditionalAddress>>("2.0/contact/" + contactId + "/additional_address"
+            => await _api.GetAsync<List<AdditionalAddress>>("2.0/contact/" + contactId + "/additional_address"
                 .AddQueryParameter("order_by", orderBy)
                 .AddQueryParameter("offset", offset)
                 .AddQueryParameter("limit", limit));
@@ -34,7 +34,7 @@ namespace bexio.net
         /// <param name="contactId"></param>
         /// <returns></returns>
         public async Task<AdditionalAddress?> CreateAdditionalAddressAsync(AdditionalAddress data, int contactId)
-            => await PostAsync<AdditionalAddress>("2.0/contact/" + contactId + "/additional_address", data);
+            => await _api.PostAsync<AdditionalAddress>("2.0/contact/" + contactId + "/additional_address", data);
 
         /// <summary>
         /// Searchable fields: name, address, postcode, city, country_id, subject, email
@@ -50,7 +50,7 @@ namespace bexio.net
                                                                                    string            orderBy = "id",
                                                                                    int               offset  = 0,
                                                                                    int               limit   = 500)
-            => await PostAsync<List<AdditionalAddress>>($"2.0/contact/{contactId}/additional_address/search"
+            => await _api.PostAsync<List<AdditionalAddress>>($"2.0/contact/{contactId}/additional_address/search"
                     .AddQueryParameter("order_by", orderBy)
                     .AddQueryParameter("offset", offset)
                     .AddQueryParameter("limit", limit),
@@ -63,7 +63,7 @@ namespace bexio.net
         /// <param name="additionalAddressId"></param>
         /// <returns></returns>
         public async Task<AdditionalAddress?> GetAdditionalAddressAsync(int contactId, int additionalAddressId)
-            => await GetAsync<AdditionalAddress>($"2.0/contact/{contactId}/additional_address/{additionalAddressId}");
+            => await _api.GetAsync<AdditionalAddress>($"2.0/contact/{contactId}/additional_address/{additionalAddressId}");
 
         /// <summary>
         /// 
@@ -75,7 +75,7 @@ namespace bexio.net
         public async Task<AdditionalAddress?> UpdateAdditionalAddressAsync(AdditionalAddress data,
                                                                            int               contactId,
                                                                            int               additionalAddressId)
-            => await PostAsync<AdditionalAddress>($"2.0/contact/{contactId}/additional_address/{additionalAddressId}",
+            => await _api.PostAsync<AdditionalAddress>($"2.0/contact/{contactId}/additional_address/{additionalAddressId}",
                 data);
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace bexio.net
         /// <param name="additionalAddressId"></param>
         /// <returns></returns>
         public async Task<bool?> DeleteAdditionalAddressAsync(int contactId, int additionalAddressId)
-            => await DeleteAsync($"2.0/contact/{contactId}/additional_address/{additionalAddressId}");
+            => await _api.DeleteAsync($"2.0/contact/{contactId}/additional_address/{additionalAddressId}");
 
         #endregion
 	}

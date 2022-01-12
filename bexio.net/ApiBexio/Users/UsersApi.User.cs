@@ -5,8 +5,15 @@ using bexio.net.Models.Other.User;
 
 namespace bexio.net
 {
-	public partial class BexioApi
+	public partial class UsersApi
 	{
+		private readonly BexioApi _api;
+
+        internal UsersApi(BexioApi api)
+        {
+            _api = api;
+        }
+        
 		#region Users
 
 		/// <summary>
@@ -16,7 +23,7 @@ namespace bexio.net
 		/// <param name="limit">max: 2000</param>
 		/// <returns></returns>
 		public async Task<PaginatedList<User>?> GetUsersAsync(int offset = 0, int limit = 500)
-			=> await GetPaginatedAsync<User>("3.0/users"
+			=> await _api.GetPaginatedAsync<User>("3.0/users"
 				.AddQueryParameter("offset", offset)
 				.AddQueryParameter("limit", limit));
 
@@ -26,7 +33,7 @@ namespace bexio.net
 		/// <param name="userId"></param>
 		/// <returns></returns>
 		public async Task<User?> GetUserAsync(int userId)
-			=> await GetAsync<User>($"3.0/users/{userId.ToString()}");
+			=> await _api.GetAsync<User>($"3.0/users/{userId.ToString()}");
 
 		#endregion
 

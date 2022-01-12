@@ -33,6 +33,11 @@ namespace bexio.net
 
         public Encoding Encoding { get; set; } = Encoding.UTF8;
 
+        public ContactApi Contact { get; }
+        public ProjectApi Project { get; }
+        public UsersApi Users { get; }
+        public ItemAndProductApi ItemAndProduct { get; }
+        public SaleOrderManagementApi SaleOrderManagement { get; }
 
         public BexioApi(string                  apiToken,
                         string                  url                     = "https://api.bexio.com",
@@ -45,6 +50,12 @@ namespace bexio.net
             _httpClient = new HttpClient();
             _httpClient.DefaultRequestHeaders.Add("User-Agent",
                 $"BexioApi/{VERSION} (DotNet/{Environment.Version}/{Environment.OSVersion})");
+
+            Contact                  = new ContactApi(this);
+            Project                  = new ProjectApi(this);
+            Users                    = new UsersApi(this);
+            ItemAndProduct           = new ItemAndProductApi(this);
+            SaleOrderManagement      = new SaleOrderManagementApi(this);
 
             _serializeOptions = new JsonSerializerOptions
             {

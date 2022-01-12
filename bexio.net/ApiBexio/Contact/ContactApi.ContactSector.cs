@@ -23,7 +23,7 @@ using bexio.net.Responses;
 
 namespace bexio.net
 {
-	public partial class BexioApi
+	public partial class ContactApi
 	{
 		#region Contact sectors
 
@@ -37,7 +37,7 @@ namespace bexio.net
         public async Task<List<SimpleDictionaryEntry>?> GetContactSectorsAsync(string orderBy = "id",
                                                                                int    offset  = 0,
                                                                                int    limit   = 500)
-            => await GetAsync<List<SimpleDictionaryEntry>>("2.0/contact_branch"
+            => await _api.GetAsync<List<SimpleDictionaryEntry>>("2.0/contact_branch"
                 .AddQueryParameter("order_by", orderBy)
                 .AddQueryParameter("offset", offset)
                 .AddQueryParameter("limit", limit));
@@ -65,7 +65,7 @@ namespace bexio.net
                                                                                   string            orderBy = "id",
                                                                                   int               offset  = 0,
                                                                                   int               limit   = 500)
-            => await PostAsync<List<SimpleDictionaryEntry>>("2.0/contact_branch/search"
+            => await _api.PostAsync<List<SimpleDictionaryEntry>>("2.0/contact_branch/search"
                     .AddQueryParameter("order_by", orderBy)
                     .AddQueryParameter("offset", offset)
                     .AddQueryParameter("limit", limit),

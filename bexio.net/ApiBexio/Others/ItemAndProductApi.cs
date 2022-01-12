@@ -3,8 +3,15 @@ using bexio.net.Models.Items;
 
 namespace bexio.net
 {
-	public partial class BexioApi
+	public partial class ItemAndProductApi
 	{
+		private readonly BexioApi _api;
+
+        internal ItemAndProductApi(BexioApi api)
+        {
+            _api = api;
+        }
+        
 		#region Items and Products
 
 		// TODO
@@ -14,7 +21,7 @@ namespace bexio.net
 		// Search items
 		// Fetch an item
 		public async Task<Article?> GetArticleAsync(int articleId)
-			=> await GetAsync<Article>($"2.0/article/{articleId}");
+			=> await _api.GetAsync<Article>($"2.0/article/{articleId}");
 
 		// Edit an item
 		// Delete an item

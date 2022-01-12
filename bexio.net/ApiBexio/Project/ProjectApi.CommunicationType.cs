@@ -22,7 +22,7 @@ using bexio.net.Responses;
 
 namespace bexio.net
 {
-	public partial class BexioApi
+	public partial class ProjectApi
 	{
         #region Communication types
 
@@ -37,7 +37,7 @@ namespace bexio.net
             string orderBy = "id",
             int    offset  = 0,
             int    limit   = 500)
-            => await GetAsync<List<SimpleDictionaryEntry>>("2.0/communication_kind"
+            => await _api.GetAsync<List<SimpleDictionaryEntry>>("2.0/communication_kind"
                 .AddQueryParameter("order_by", orderBy)
                 .AddQueryParameter("offset", offset)
                 .AddQueryParameter("limit", limit));
@@ -54,7 +54,7 @@ namespace bexio.net
                                                                                       string            orderBy = "id",
                                                                                       int               offset  = 0,
                                                                                       int               limit   = 500)
-            => await PostAsync<List<SimpleDictionaryEntry>>("2.0/communication_kind/search"
+            => await _api.PostAsync<List<SimpleDictionaryEntry>>("2.0/communication_kind/search"
                     .AddQueryParameter("order_by", orderBy)
                     .AddQueryParameter("offset", offset)
                     .AddQueryParameter("limit", limit),

@@ -6,7 +6,7 @@ using bexio.net.Models.Projects;
 
 namespace bexio.net
 {
-	public partial class BexioApi
+	public partial class ProjectApi
 	{
 		#region BusinessActivities
 
@@ -21,7 +21,7 @@ namespace bexio.net
             string orderBy = "id",
             int    offset  = 0,
             int    limit   = 500)
-            => await GetAsync<List<BusinessActivity>>("2.0/client_service"
+            => await _api.GetAsync<List<BusinessActivity>>("2.0/client_service"
                 .AddQueryParameter("order_by", orderBy)
                 .AddQueryParameter("offset", offset)
                 .AddQueryParameter("limit", limit));
@@ -32,7 +32,7 @@ namespace bexio.net
         /// <param name="data"></param>
         /// <returns></returns>
         public async Task<BusinessActivity?> CreateBusinessActivityAsync(BusinessActivity data)
-            => await PostAsync<BusinessActivity>("2.0/client_service", data);
+            => await _api.PostAsync<BusinessActivity>("2.0/client_service", data);
 
         /// <summary>
         /// 
@@ -46,7 +46,7 @@ namespace bexio.net
                                                                                  string            orderBy = "id",
                                                                                  int               offset  = 0,
                                                                                  int               limit   = 500)
-            => await PostAsync<List<BusinessActivity>>("2.0/client_service/search"
+            => await _api.PostAsync<List<BusinessActivity>>("2.0/client_service/search"
                     .AddQueryParameter("order_by", orderBy)
                     .AddQueryParameter("offset", offset)
                     .AddQueryParameter("limit", limit),

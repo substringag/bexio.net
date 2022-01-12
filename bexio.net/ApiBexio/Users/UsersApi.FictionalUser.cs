@@ -6,7 +6,7 @@ using bexio.net.Models.Other.User;
 
 namespace bexio.net
 {
-	public partial class BexioApi
+	public partial class UsersApi
 	{
 		#region FictionalUsers
 
@@ -18,7 +18,7 @@ namespace bexio.net
 		/// <param name="limit"></param>
 		/// <returns></returns>
 		public async Task<PaginatedList<FictionalUser>?> GetFictionalUsersAsync(int offset = 0, int limit = 500)
-			=> await GetPaginatedAsync<FictionalUser>("3.0/fictional_users"
+			=> await _api.GetPaginatedAsync<FictionalUser>("3.0/fictional_users"
 				.AddQueryParameter("offset", offset)
 				.AddQueryParameter("limit", limit));
 
@@ -28,7 +28,7 @@ namespace bexio.net
 		/// <param name="fictionalUserId"></param>
 		/// <returns></returns>
 		public async Task<FictionalUser?> GetFictionalUserAsync(int fictionalUserId)
-			=> await GetAsync<FictionalUser>($"3.0/fictional_users/{fictionalUserId.ToString()}");
+			=> await _api.GetAsync<FictionalUser>($"3.0/fictional_users/{fictionalUserId.ToString()}");
 
 		/// <summary>
 		/// 
@@ -36,7 +36,7 @@ namespace bexio.net
 		/// <param name="data"></param>
 		/// <returns></returns>
 		public async Task<FictionalUser?> InsertFictionalUserAsync(FictionalUser data)
-			=> await PostAsync<FictionalUser>("3.0/fictional_users/", data);
+			=> await _api.PostAsync<FictionalUser>("3.0/fictional_users/", data);
 
 		/// <summary>
 		/// 
@@ -45,7 +45,7 @@ namespace bexio.net
 		/// <param name="fictionalUserId"></param>
 		/// <returns></returns>
 		public async Task<FictionalUser?> UpdateFictionalUserAsync(FictionalUser data, int fictionalUserId = -1)
-			=> await PatchAsync<FictionalUser>($"3.0/fictional_users/{fictionalUserId.ToString()}", data);
+			=> await _api.PatchAsync<FictionalUser>($"3.0/fictional_users/{fictionalUserId.ToString()}", data);
 
 		/// <summary>
 		/// 
@@ -53,7 +53,7 @@ namespace bexio.net
 		/// <param name="fictionalUserId"></param>
 		/// <returns></returns>
 		public async Task<bool?> DeleteFictionalUserAsync(int fictionalUserId)
-			=> await DeleteAsync($"3.0/fictional_users/{fictionalUserId.ToString()}");
+			=> await _api.DeleteAsync($"3.0/fictional_users/{fictionalUserId.ToString()}");
 
 		#endregion
 	}
