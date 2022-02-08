@@ -64,7 +64,7 @@ namespace bexio.net
                 // We dont want to include useless spaces in the json
                 WriteIndented = false,
                 // DefaultIgnoreCondition omits properties with 'default' value, which is useful for Create-APIs
-                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
+                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
             };
             _serializeOptions.Converters.Add(new DateTimeParseConverter());
             // The universal converter, that can cast any type to string. Not in use, in favor of 'Number'
