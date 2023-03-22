@@ -2,7 +2,7 @@
 
 # Bexio API
 
-A simple REST API client in .NET 5.0 for [Bexio](https://www.bexio.com/) which is a powerful cloud based software for
+A simple REST API client in .NET 6.0 for [Bexio](https://www.bexio.com/) which is a powerful cloud based software for
 business administrations.
 
 Find official API documentation [here](https://docs.bexio.com/)
