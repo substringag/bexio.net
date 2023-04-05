@@ -305,6 +305,14 @@ namespace bexio.net
             {
                 // TODO: log to ILogger
                 Console.WriteLine("### Error: " + (int)httpResponse.StatusCode);
+                Console.WriteLine("### Content: " + httpResponse.Content);
+                Console.WriteLine("### Headers: " + httpResponse.Headers);
+                Console.WriteLine("### RequestMessage: " + httpResponse.RequestMessage);
+                Console.WriteLine("### request: " + request.ToString());
+                Console.WriteLine("### RequestUri: " + request.RequestUri);
+                Console.WriteLine("### Headers: " + request.Headers);
+                Console.WriteLine("### Content: " + request.Content);
+
                 Console.WriteLine(await httpResponse.Content.ReadAsStringAsync());
                 if (_unsuccessfulReturnStyle == UnsuccessfulReturnStyle.Throw)
                     throw new UnsuccessfulException((int)httpResponse.StatusCode);
