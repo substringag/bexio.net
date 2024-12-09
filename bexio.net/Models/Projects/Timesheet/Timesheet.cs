@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using bexio.net.Models.Projects.Timesheet.Tracking;
 
 namespace bexio.net.Models.Projects.Timesheet
@@ -16,6 +17,8 @@ namespace bexio.net.Models.Projects.Timesheet
         public int?          PrPackageId     { get; set; }
         public int?          PrMilestoneId   { get; set; }
         public string?       EstimatedTime   { get; set; }
-        public TrackingBase? Tracking        { get; set; }
+
+        // Todo: @nino fix pls
+        public TimesheetDuration? Tracking   { get; set; }
     }
 }

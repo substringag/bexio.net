@@ -66,8 +66,8 @@ namespace bexio.net
         /// <param name="data"></param>
         /// <param name="timesheetId"></param>
         /// <returns></returns>
-        public async Task<TimesheetFetched?> UpdateTimesheetAsync(Timesheet data, int timesheetId)
-            => await _api.PostAsync<TimesheetFetched>($"/2.0/timesheet/{timesheetId.ToString()}", data);
+        public async Task<Timesheet?> UpdateTimesheetAsync(Timesheet data, int timesheetId)
+            => await _api.PostAsync<Timesheet>($"/2.0/timesheet/{timesheetId.ToString()}", data);
 
         /// <summary>
         /// 

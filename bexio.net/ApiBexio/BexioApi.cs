@@ -64,7 +64,7 @@ namespace bexio.net
                 // We dont want to include useless spaces in the json
                 WriteIndented = false,
                 // DefaultIgnoreCondition omits properties with 'default' value, which is useful for Create-APIs
-                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
+                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
             };
             _serializeOptions.Converters.Add(new DateTimeParseConverter());
             // The universal converter, that can cast any type to string. Not in use, in favor of 'Number'
@@ -305,6 +305,14 @@ namespace bexio.net
             {
                 // TODO: log to ILogger
                 Console.WriteLine("### Error: " + (int)httpResponse.StatusCode);
+                Console.WriteLine("### Content: " + httpResponse.Content);
+                Console.WriteLine("### Headers: " + httpResponse.Headers);
+                Console.WriteLine("### RequestMessage: " + httpResponse.RequestMessage);
+                Console.WriteLine("### request: " + request.ToString());
+                Console.WriteLine("### RequestUri: " + request.RequestUri);
+                Console.WriteLine("### Headers: " + request.Headers);
+                Console.WriteLine("### Content: " + request.Content);
+
                 Console.WriteLine(await httpResponse.Content.ReadAsStringAsync());
                 if (_unsuccessfulReturnStyle == UnsuccessfulReturnStyle.Throw)
                     throw new UnsuccessfulException((int)httpResponse.StatusCode);
