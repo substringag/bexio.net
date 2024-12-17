@@ -266,6 +266,9 @@ namespace bexio.net
                 string responseContentString = await httpResponse.Content.ReadAsStringAsync();
 
 #if DEBUG
+                string rootPath = Path.Combine(Directory.GetParent(AppContext.BaseDirectory)!.Parent!.Parent!.Parent!.FullName, "Responses/response-data.txt");
+                await File.WriteAllTextAsync(rootPath, responseContentString);
+                
                 Console.WriteLine("### Response-Content: " + responseContentString);
                 Console.WriteLine("### ---");
 #endif
