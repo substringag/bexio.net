@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿using System.Net;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 using bexio.net.Converter;
 using bexio.net.Helpers;
 using bexio.net.Models;
@@ -23,7 +19,7 @@ namespace bexio.net
     public partial class BexioApi
     {
         // official version "2021-10-18" - see https://docs.bexio.com/#section/Changelog
-        public const string VERSION = "1.0.0";
+        private const string VERSION = "1.0.0";
 
         private readonly string                  _url;
         private readonly string                  _apiToken;
@@ -31,7 +27,7 @@ namespace bexio.net
         private readonly JsonSerializerOptions   _serializeOptions;
         private readonly HttpClient              _httpClient;
 
-        public Encoding Encoding { get; set; } = Encoding.UTF8;
+        private Encoding Encoding { get; set; } = Encoding.UTF8;
 
         public ContactApi Contact { get; }
         public ProjectApi Project { get; }
@@ -61,7 +57,7 @@ namespace bexio.net
             {
                 // PropertyNamingPolicy allows us to name CamelCase in C# Models, but the json will have snake_case
                 PropertyNamingPolicy = new SnakeCaseNamingPolicy(),
-                // We dont want to include useless spaces in the json
+                // We don't want to include useless spaces in the json
                 WriteIndented = false,
                 // DefaultIgnoreCondition omits properties with 'default' value, which is useful for Create-APIs
                 DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
@@ -124,7 +120,7 @@ namespace bexio.net
 
         #region Internal Methods
 
-        internal async Task<TResponse?> GetAsync<TResponse>(string url)
+        internal async Task<TResponse?> GetAsync<TResponse>(string url, [CallerMemberName] string callerName = "")
             where TResponse : class
         {
             var httpRequestMessage = new HttpRequestMessage
@@ -132,7 +128,7 @@ namespace bexio.net
                 Method     = HttpMethod.Get,
                 RequestUri = new Uri(JoinUriSegments(_url, url)),
             };
-            return await ExecuteRequestInternal<TResponse>(httpRequestMessage);
+            return await ExecuteRequestInternal<TResponse>(httpRequestMessage, callerName);
         }
 
 
@@ -254,19 +250,19 @@ namespace bexio.net
             return new PaginatedList<TResponse>(list);
         }
 
-        private async Task<TResponse?> ExecuteRequestInternal<TResponse>(HttpRequestMessage request)
+        private async Task<TResponse?> ExecuteRequestInternal<TResponse>(HttpRequestMessage request, string callerName = "")
             where TResponse : class
         {
             try
             {
-                var httpResponse = await ExecuteHttpRequest(request);
+                HttpResponseMessage? httpResponse = await ExecuteHttpRequest(request);
                 if (httpResponse == null)
                     return null;
 
                 string responseContentString = await httpResponse.Content.ReadAsStringAsync();
 
 #if DEBUG
-                string rootPath = Path.Combine(Directory.GetParent(AppContext.BaseDirectory)!.Parent!.Parent!.Parent!.FullName, "Responses/response-data.txt");
+                string rootPath = Path.Combine(Directory.GetParent(AppContext.BaseDirectory)!.Parent!.Parent!.Parent!.FullName, $"Responses/{callerName}.txt");
                 await File.WriteAllTextAsync(rootPath, responseContentString);
                 
                 Console.WriteLine("### Response-Content: " + responseContentString);
