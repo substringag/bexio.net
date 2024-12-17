@@ -1,4 +1,3 @@
-using System;
 using System.Globalization;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -10,7 +9,7 @@ namespace bexio.net.Converter
     /// this Converter converts it to a decimal.
     /// <br/><br/>
     /// This only works with nullable decimal types. If non-nullable decimals
-    /// are required, make a copy of this class, or use decimal? neverthless.
+    /// are required, make a copy of this class, or use decimal? nevertheless.
     /// </summary>
     public class NullableDecimalConverter : JsonConverter<decimal?>
     {
@@ -21,11 +20,11 @@ namespace bexio.net.Converter
         {
             // parsing the string like this (instead of reader.GetString()) allows us
             // to handle numbers like 0 as well as strings like "0.0"
-            using var jsonDoc = JsonDocument.ParseValue(ref reader);
-            string    str     = jsonDoc.RootElement.ToString() ?? string.Empty;
+            using JsonDocument jsonDoc = JsonDocument.ParseValue(ref reader);
+            string    str     = jsonDoc.RootElement.ToString();
 
             // Read it as a decimal
-            if (decimal.TryParse(str, NumberStyles.Number, CultureInfo.InvariantCulture, out var d))
+            if (decimal.TryParse(str, NumberStyles.Number, CultureInfo.InvariantCulture, out decimal d))
                 return d;
 
             return null;

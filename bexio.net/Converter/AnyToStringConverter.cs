@@ -1,4 +1,3 @@
-using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -18,8 +17,8 @@ namespace bexio.net.Converter
             Type                  typeToConvert,
             JsonSerializerOptions options)
         {
-            using var jsonDoc = JsonDocument.ParseValue(ref reader);
-            return jsonDoc.RootElement.ToString() ?? string.Empty;
+            using JsonDocument jsonDoc = JsonDocument.ParseValue(ref reader);
+            return jsonDoc.RootElement.ToString();
         }
 
         public override void Write(

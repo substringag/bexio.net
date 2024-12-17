@@ -17,10 +17,10 @@ namespace bexio.net.ApiBexio
      *   they should serialize as string "yyyy-MM-dd"
      */
 
-    public partial class BexioApi
+    public class BexioApi
     {
-        // official version "2021-10-18" - see https://docs.bexio.com/#section/Changelog
-        private const string VERSION = "1.0.0";
+        // official version "2024-10-22" - see https://docs.bexio.com/#section/Changelog
+        private const string VERSION = "3.0.0";
 
         private readonly string                  _url;
         private readonly string                  _apiToken;
@@ -136,7 +136,6 @@ namespace bexio.net.ApiBexio
         internal async Task<TResponse?> PostAsync<TResponse>(string url, object? payload)
             where TResponse : class
         {
-            Console.WriteLine("#> BODY: " + JsonSerializer.Serialize(payload, _serializeOptions));
             var httpRequestMessage = new HttpRequestMessage
             {
                 Method     = HttpMethod.Post,
@@ -165,7 +164,6 @@ namespace bexio.net.ApiBexio
             };
             return await ExecuteRequestInternal<TResponse>(httpRequestMessage);
         }
-
 
         internal async Task<TResponse?> PutAsync<TResponse>(string url, object? payload)
             where TResponse : class
@@ -218,7 +216,7 @@ namespace bexio.net.ApiBexio
                 Method     = HttpMethod.Get,
                 RequestUri = new Uri(JoinUriSegments(_url, url)),
             };
-            var response = await ExecuteHttpRequest(httpRequestMessage);
+            HttpResponseMessage? response = await ExecuteHttpRequest(httpRequestMessage);
             if (response == null)
                 return null;
 
@@ -263,6 +261,7 @@ namespace bexio.net.ApiBexio
                 string responseContentString = await httpResponse.Content.ReadAsStringAsync();
 
 #if DEBUG
+                // Save response to file with method name
                 string rootPath = Path.Combine(Directory.GetParent(AppContext.BaseDirectory)!.Parent!.Parent!.Parent!.FullName, $"Responses/{callerName}.txt");
                 await File.WriteAllTextAsync(rootPath, responseContentString);
                 
@@ -284,10 +283,10 @@ namespace bexio.net.ApiBexio
             {
                 throw;
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                // TODO Log exception
-                Console.WriteLine(ex);
+                // TODO: log to ILogger
+                Console.WriteLine(exception);
                 return null;
             }
         }
@@ -297,7 +296,7 @@ namespace bexio.net.ApiBexio
             request.Headers.Add(HttpRequestHeader.Authorization.ToString(), "Bearer " + _apiToken);
             request.Headers.Add(HttpRequestHeader.Accept.ToString(), "application/json");
 
-            var httpResponse = await _httpClient.SendAsync(request);
+            HttpResponseMessage httpResponse = await _httpClient.SendAsync(request);
 
             if (httpResponse.StatusCode != HttpStatusCode.OK &&
                 httpResponse.StatusCode != HttpStatusCode.Created &&
@@ -308,7 +307,7 @@ namespace bexio.net.ApiBexio
                 Console.WriteLine("### Content: " + httpResponse.Content);
                 Console.WriteLine("### Headers: " + httpResponse.Headers);
                 Console.WriteLine("### RequestMessage: " + httpResponse.RequestMessage);
-                Console.WriteLine("### request: " + request.ToString());
+                Console.WriteLine("### request: " + request);
                 Console.WriteLine("### RequestUri: " + request.RequestUri);
                 Console.WriteLine("### Headers: " + request.Headers);
                 Console.WriteLine("### Content: " + request.Content);

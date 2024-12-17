@@ -1,4 +1,3 @@
-using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using bexio.net.Models.Sales.Repetition;
@@ -12,7 +11,7 @@ namespace bexio.net.Converter
                                                           JsonSerializerOptions options)
         {
             // in making a copy, we get a new object, where the stream position is still at the start
-            var readerCopy = reader;
+            Utf8JsonReader readerCopy = reader;
 
             // read the 'Type'
             var dummy = JsonSerializer.Deserialize<Dummy>(ref reader, options);

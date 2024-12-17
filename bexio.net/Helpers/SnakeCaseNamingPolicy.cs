@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Text.Json;
 
 namespace bexio.net.Helpers
@@ -15,7 +14,7 @@ namespace bexio.net.Helpers
             return ToSnakeCase(name);
         }
 
-        public static string ToSnakeCase(string str)
+        private static string ToSnakeCase(string str)
         {
             return string.Concat(str
                     .Select((x, i) =>

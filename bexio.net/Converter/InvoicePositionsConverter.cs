@@ -1,4 +1,3 @@
-using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using bexio.net.Models.Sales.Positions;
@@ -6,7 +5,7 @@ using bexio.net.Models.Sales.Positions;
 namespace bexio.net.Converter
 {
     /// <summary>
-    /// This class allows the the serializer to convert Position-Json-Objects
+    /// This class allows the serializer to convert Position-Json-Objects
     /// based on the "Type" string property.
     /// </summary>
     public class InvoicePositionsConverter : JsonConverter<PositionBase>
@@ -14,7 +13,7 @@ namespace bexio.net.Converter
         public override PositionBase? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
             // in making a copy, we get a new object, where the stream position is still at the start
-            var readerCopy = reader;
+            Utf8JsonReader readerCopy = reader;
 
             // read the 'Type'
             var dummy = JsonSerializer.Deserialize<Dummy>(ref reader, options);
