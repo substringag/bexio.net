@@ -1,6 +1,4 @@
-using System;
-
-namespace bexio.net
+namespace bexio.net.Exceptions
 {
     public class UnsuccessfulException : Exception
     {

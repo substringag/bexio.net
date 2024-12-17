@@ -288,3 +288,8 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
+
+# CUSTOM
+bexio.net.Example/Responses/*
+bexio.net.Example/appsettings.json
+

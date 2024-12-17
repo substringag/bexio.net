@@ -1,4 +1,4 @@
-namespace bexio.net
+namespace bexio.net.Exceptions
 {
     public enum UnsuccessfulReturnStyle
     {

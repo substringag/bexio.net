@@ -25,9 +25,9 @@ namespace bexio.net
 	public partial class ProjectApi
 	{
 
-        private readonly BexioApi _api;
+        private readonly ApiBexio.BexioApi _api;
 
-        internal ProjectApi(BexioApi api)
+        internal ProjectApi(ApiBexio.BexioApi api)
         {
             _api = api;
         }

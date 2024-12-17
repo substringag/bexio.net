@@ -11,9 +11,9 @@ namespace bexio.net
 {
 	public partial class SaleOrderManagementApi
 	{
-		private readonly BexioApi _api;
+		private readonly ApiBexio.BexioApi _api;
 
-        internal SaleOrderManagementApi(BexioApi api)
+        internal SaleOrderManagementApi(ApiBexio.BexioApi api)
         {
             _api = api;
         }

@@ -5,9 +5,9 @@ namespace bexio.net
 {
 	public partial class ItemAndProductApi
 	{
-		private readonly BexioApi _api;
+		private readonly ApiBexio.BexioApi _api;
 
-        internal ItemAndProductApi(BexioApi api)
+        internal ItemAndProductApi(ApiBexio.BexioApi api)
         {
             _api = api;
         }

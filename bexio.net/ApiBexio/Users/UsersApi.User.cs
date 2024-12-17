@@ -7,9 +7,9 @@ namespace bexio.net
 {
 	public partial class UsersApi
 	{
-		private readonly BexioApi _api;
+		private readonly ApiBexio.BexioApi _api;
 
-        internal UsersApi(BexioApi api)
+        internal UsersApi(ApiBexio.BexioApi api)
         {
             _api = api;
         }
