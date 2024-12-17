@@ -1,26 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Text;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
-using bexio.net.Converter;
 using bexio.net.Helpers;
 using bexio.net.Models;
-using bexio.net.Models.Contacts;
-using bexio.net.Models.Items;
-using bexio.net.Models.Other.User;
-using bexio.net.Models.Projects;
-using bexio.net.Models.Projects.Timesheet;
-using bexio.net.Models.Sales;
-using bexio.net.Models.Sales.Positions;
-using bexio.net.Models.Sales.Repetition;
-using bexio.net.Responses;
 
-namespace bexio.net
+namespace bexio.net.ApiBexio.Project
 {
 	public partial class ProjectApi
 	{

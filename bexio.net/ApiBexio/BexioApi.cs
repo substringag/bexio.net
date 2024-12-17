@@ -31,7 +31,7 @@ namespace bexio.net.ApiBexio
         private Encoding Encoding { get; set; } = Encoding.UTF8;
 
         public ContactApi Contact { get; }
-        public ProjectApi Project { get; }
+        public Project.ProjectApi Project { get; }
         public UsersApi Users { get; }
         public ItemAndProductApi ItemAndProduct { get; }
         public SaleOrderManagementApi SaleOrderManagement { get; }
@@ -49,7 +49,7 @@ namespace bexio.net.ApiBexio
                 $"BexioApi/{VERSION} (DotNet/{Environment.Version}/{Environment.OSVersion})");
 
             Contact                  = new ContactApi(this);
-            Project                  = new ProjectApi(this);
+            Project                  = new Project.ProjectApi(this);
             Users                    = new UsersApi(this);
             ItemAndProduct           = new ItemAndProductApi(this);
             SaleOrderManagement      = new SaleOrderManagementApi(this);

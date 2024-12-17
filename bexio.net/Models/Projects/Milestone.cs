@@ -1,11 +1,10 @@
-using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace bexio.net.Models.Projects
 {
-    public class Milestone : IHasPrimaryKey
+    public record Milestone
     {
-        public int Id { get; set; } = default;
+        public int? Id { get; set; }
 
         [MaxLength(255)]
         public string Name { get; set; } = "";

@@ -1,13 +1,16 @@
-using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace bexio.net.Models.Projects
 {
-    public class Project : IHasPrimaryKey
+    public record Project
     {
-        public int       Id                  { get; set; } = default;
+        public int?      Id                  { get; set; }
         public string?   Uuid                { get; set; }
         public string?   Nr                  { get; set; }
-        public string    Name                { get; set; } = "";
+        
+        [MaxLength(800)]
+        public string    Name                { get; set; } = null!;
+        
         public DateTime? StartDate           { get; set; }
         public DateTime? EndDate             { get; set; }
         public string?   Comment             { get; set; }

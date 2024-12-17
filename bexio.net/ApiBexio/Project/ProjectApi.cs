@@ -1,33 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Text;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
-using bexio.net.Converter;
 using bexio.net.Helpers;
 using bexio.net.Models;
-using bexio.net.Models.Contacts;
-using bexio.net.Models.Items;
-using bexio.net.Models.Other.User;
 using bexio.net.Models.Projects;
-using bexio.net.Models.Projects.Timesheet;
-using bexio.net.Models.Sales;
-using bexio.net.Models.Sales.Positions;
-using bexio.net.Models.Sales.Repetition;
 using bexio.net.Responses;
 
-namespace bexio.net
+namespace bexio.net.ApiBexio.Project
 {
 	public partial class ProjectApi
 	{
 
-        private readonly ApiBexio.BexioApi _api;
+        private readonly BexioApi _api;
 
-        internal ProjectApi(ApiBexio.BexioApi api)
+        internal ProjectApi(BexioApi api)
         {
             _api = api;
         }
@@ -35,25 +18,25 @@ namespace bexio.net
 		#region Projects
 
         /// <summary>
-        /// 
+        /// This action fetches a list of all projects
         /// </summary>
         /// <param name="orderBy">"id" or "name" // may append _desc</param>
         /// <param name="offset"></param>
         /// <param name="limit">max: 2000</param>
         /// <returns></returns>
-        public async Task<List<Project>?> GetProjectsAsync(string orderBy = "id", int offset = 0, int limit = 500)
-            => await _api.GetAsync<List<Project>>("2.0/pr_project"
+        public async Task<List<Models.Projects.Project>?> GetProjectsAsync(string orderBy = "id", int offset = 0, int limit = 500)
+            => await _api.GetAsync<List<Models.Projects.Project>>("2.0/pr_project"
                 .AddQueryParameter("order_by", orderBy)
                 .AddQueryParameter("offset", offset)
                 .AddQueryParameter("limit", limit));
 
         /// <summary>
-        /// 
+        /// This action creates a new project
         /// </summary>
         /// <param name="project"></param>
         /// <returns></returns>
-        public async Task<Project?> CreateProjectAsync(Project project)
-            => await _api.PostAsync<Project>("2.0/pr_project", project);
+        public async Task<Models.Projects.Project?> CreateProjectAsync(Models.Projects.Project project)
+            => await _api.PostAsync<Models.Projects.Project>("2.0/pr_project", project);
 
         /// <summary>
         /// Searchable fields: "name", "contact_id", "pr_state_id"
@@ -63,11 +46,11 @@ namespace bexio.net
         /// <param name="offset"></param>
         /// <param name="limit">max: 2000</param>
         /// <returns></returns>
-        public async Task<List<Project>?> SearchProjectsAsync(List<SearchQuery> data,
+        public async Task<List<Models.Projects.Project>?> SearchProjectsAsync(List<SearchQuery> data,
                                                               string            orderBy = "id",
                                                               int               offset  = 0,
                                                               int               limit   = 500)
-            => await _api.PostAsync<List<Project>>("2.0/pr_project/search"
+            => await _api.PostAsync<List<Models.Projects.Project>>("2.0/pr_project/search"
                     .AddQueryParameter("order_by", orderBy)
                     .AddQueryParameter("offset", offset)
                     .AddQueryParameter("limit", limit),
@@ -78,8 +61,8 @@ namespace bexio.net
         /// </summary>
         /// <param name="projectId"></param>
         /// <returns></returns>
-        public async Task<Project?> GetProjectAsync(int projectId)
-            => await _api.GetAsync<Project>($"2.0/pr_project/{projectId}");
+        public async Task<Models.Projects.Project?> GetProjectAsync(int projectId)
+            => await _api.GetAsync<Models.Projects.Project>($"2.0/pr_project/{projectId}");
 
         /// <summary>
         /// 
@@ -87,8 +70,8 @@ namespace bexio.net
         /// <param name="projectId"></param>
         /// <param name="project"></param>
         /// <returns></returns>
-        public async Task<Project?> UpdateProjectAsync(int projectId, Project project)
-            => await _api.PostAsync<Project>($"2.0/pr_project/{projectId}", project);
+        public async Task<Models.Projects.Project?> UpdateProjectAsync(int projectId, Models.Projects.Project project)
+            => await _api.PostAsync<Models.Projects.Project>($"2.0/pr_project/{projectId}", project);
 
         /// <summary>
         /// 

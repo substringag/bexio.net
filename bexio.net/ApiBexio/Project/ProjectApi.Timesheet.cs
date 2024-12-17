@@ -1,10 +1,8 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using bexio.net.Helpers;
 using bexio.net.Models;
 using bexio.net.Models.Projects.Timesheet;
 
-namespace bexio.net
+namespace bexio.net.ApiBexio.Project
 {
 	public partial class ProjectApi
 	{
