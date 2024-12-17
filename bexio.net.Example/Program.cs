@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using bexio.net.Exceptions;
 using Microsoft.Extensions.Configuration;
 
 namespace bexio.net.Example
@@ -17,7 +16,7 @@ namespace bexio.net.Example
             // Create token from https://office.bexio.com/admin/apiTokens
             string token = configuration["BexioToken"]!;
 
-            var bexioApi = new BexioApi(token, unsuccessfulReturnStyle: UnsuccessfulReturnStyle.Throw);
+            var bexioApi = new ApiBexio.BexioApi(token, unsuccessfulReturnStyle: UnsuccessfulReturnStyle.Throw);
 
             // Note: with "Throw"-Style, we can ignore nullability in the following code. But make sure,
             // you handle "UnsuccessfulException"'s properly, not like in this example ;)

@@ -4,11 +4,12 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using bexio.net.Converter;
+using bexio.net.Exceptions;
 using bexio.net.Helpers;
 using bexio.net.Models;
 using bexio.net.Responses;
 
-namespace bexio.net
+namespace bexio.net.ApiBexio
 {
     /* TODO
      * 

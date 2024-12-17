@@ -8,9 +8,9 @@ namespace bexio.net
 {
 	public partial class ContactApi
 	{
-        private readonly BexioApi _api;
+        private readonly ApiBexio.BexioApi _api;
 
-        internal ContactApi(BexioApi api)
+        internal ContactApi(ApiBexio.BexioApi api)
         {
             _api = api;
         }
