@@ -85,6 +85,9 @@ public static class ProjectsOption
         
     }
     
+    /**
+     * https://docs.bexio.com/#tag/Projects/operation/v2SearchProjects
+     */
     public static async Task SearchProjects(ApiBexio.BexioApi bexioApi) {
         Console.WriteLine("Search projects:");
 
@@ -125,6 +128,36 @@ public static class ProjectsOption
             {
                 Console.WriteLine("No projects found. Response is null.");
             }
+        }
+    }
+
+    /**
+     * https://docs.bexio.com/#tag/Projects/operation/v2ShowProject
+     */
+    public static async Task GetProject(ApiBexio.BexioApi bexioApi)
+    {
+        Console.WriteLine("Get a project:");
+        
+        Project? response = await bexioApi.Project.GetProjectAsync(16);
+
+        if (response != null)
+        {
+            Console.WriteLine("Project Found:");
+            Console.WriteLine($"ID: {response.Id}");
+            Console.WriteLine($"Name: {response.Name}");
+            Console.WriteLine($"Start Date: {response.StartDate}");
+            Console.WriteLine($"End Date: {response.EndDate?.ToString("yyyy-MM-dd") ?? "N/A"}"); // Handle nullable EndDate
+            Console.WriteLine($"Comment: {response.Comment ?? "No comment"}");
+            Console.WriteLine($"State ID: {response.PrStateId}");
+            Console.WriteLine($"Project Type ID: {response.PrProjectTypeId}");
+            Console.WriteLine($"Contact ID: {response.ContactId}");
+            Console.WriteLine($"Invoice Type ID: {response.PrInvoiceTypeId}");
+            Console.WriteLine($"Invoice Type Amount: {response.PrInvoiceTypeAmount}");
+            Console.WriteLine($"User ID: {response.UserId}");
+        }
+        else
+        {
+            Console.WriteLine("No project found. Response is null.");
         }
     }
 }
