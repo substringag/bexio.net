@@ -18,7 +18,7 @@ namespace bexio.net.ApiBexio.Project
 		#region Projects
 
         /// <summary>
-        /// This action fetches a list of all projects
+        /// https://docs.bexio.com/#tag/Projects/operation/v2ListProjects
         /// </summary>
         /// <param name="orderBy">"id" or "name" // may append _desc</param>
         /// <param name="offset"></param>
@@ -31,7 +31,7 @@ namespace bexio.net.ApiBexio.Project
                 .AddQueryParameter("limit", limit));
 
         /// <summary>
-        /// This action creates a new project
+        /// https://docs.bexio.com/#tag/Projects/operation/v2CreateProject
         /// </summary>
         /// <param name="project"></param>
         /// <returns></returns>
@@ -40,6 +40,7 @@ namespace bexio.net.ApiBexio.Project
 
         /// <summary>
         /// Searchable fields: "name", "contact_id", "pr_state_id"
+        /// https://docs.bexio.com/#tag/Projects/operation/v2SearchProjects
         /// </summary>
         /// <param name="data"></param>
         /// <param name="orderBy">"id" or "name" // may append _desc</param>
@@ -57,7 +58,7 @@ namespace bexio.net.ApiBexio.Project
                 data);
 
         /// <summary>
-        /// 
+        /// https://docs.bexio.com/#tag/Projects/operation/v2ShowProject
         /// </summary>
         /// <param name="projectId"></param>
         /// <returns></returns>
@@ -65,16 +66,16 @@ namespace bexio.net.ApiBexio.Project
             => await _api.GetAsync<Models.Projects.Project>($"2.0/pr_project/{projectId}");
 
         /// <summary>
-        /// 
+        /// https://docs.bexio.com/#tag/Projects/operation/v2EditProject
         /// </summary>
         /// <param name="projectId"></param>
-        /// <param name="project"></param>
+        /// <param name="project">Payload</param>
         /// <returns></returns>
         public async Task<Models.Projects.Project?> UpdateProjectAsync(int projectId, Models.Projects.Project project)
             => await _api.PostAsync<Models.Projects.Project>($"2.0/pr_project/{projectId}", project);
 
         /// <summary>
-        /// 
+        /// https://docs.bexio.com/#tag/Projects/operation/DeleteProject
         /// </summary>
         /// <param name="projectId"></param>
         /// <returns></returns>
@@ -82,7 +83,7 @@ namespace bexio.net.ApiBexio.Project
             => await _api.DeleteAsync($"2.0/pr_project/{projectId}");
 
         /// <summary>
-        /// 
+        /// https://docs.bexio.com/#tag/Projects/operation/v2ArchiveProject
         /// </summary>
         /// <param name="projectId"></param>
         /// <returns></returns>
@@ -90,7 +91,7 @@ namespace bexio.net.ApiBexio.Project
             => (await _api.PostAsync<BooleanResponse>($"2.0/pr_project/{projectId}/archive", null))?.Success;
 
         /// <summary>
-        /// 
+        /// https://docs.bexio.com/#tag/Projects/operation/v2UnarchiveProject
         /// </summary>
         /// <param name="projectId"></param>
         /// <returns></returns>
@@ -98,14 +99,14 @@ namespace bexio.net.ApiBexio.Project
             => (await _api.PostAsync<BooleanResponse>($"2.0/pr_project/{projectId}/reactivate", null))?.Success;
 
         /// <summary>
-        /// 
+        /// https://docs.bexio.com/#tag/Projects/operation/v2ListProjectStatus
         /// </summary>
         /// <returns></returns>
         public async Task<List<SimpleDictionaryEntry>?> GetProjectStatusesAsync()
             => await _api.GetAsync<List<SimpleDictionaryEntry>>("2.0/pr_project_state");
 
         /// <summary>
-        /// 
+        /// Custom method to get the project status by id
         /// </summary>
         /// <param name="projectId"></param>
         /// <returns></returns>
@@ -113,7 +114,7 @@ namespace bexio.net.ApiBexio.Project
             => (await GetProjectStatusesAsync())?.Find(e => e.Id == projectId)?.Name;
 
         /// <summary>
-        /// 
+        /// https://docs.bexio.com/#tag/Projects/operation/v2ListProjectType
         /// </summary>
         /// <param name="orderBy">"id" or "name" // may append _desc</param>
         /// <returns></returns>
@@ -122,7 +123,7 @@ namespace bexio.net.ApiBexio.Project
                 .AddQueryParameter("order_by", orderBy));
 
         /// <summary>
-        /// 
+        /// Custom method to get the project type by id
         /// </summary>
         /// <param name="projectId"></param>
         /// <returns></returns>

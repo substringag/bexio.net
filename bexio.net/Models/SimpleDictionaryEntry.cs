@@ -1,8 +1,8 @@
 namespace bexio.net.Models
 {
-    public class SimpleDictionaryEntry
+    public record SimpleDictionaryEntry
     {
-        public int     Id   { get; set; } = default;
+        public int     Id   { get; set; } = 0;
         public string? Name { get; set; } = "";
 
         public override string ToString()

@@ -6,9 +6,6 @@ namespace bexio.net.Example.Options;
 
 public static class ProjectsOption
 {
-    /**
-     * https://docs.bexio.com/#tag/Projects/operation/v2ListProjects
-     */
     public static async Task ShowProjectsAndMilestones(ApiBexio.BexioApi bexioApi)
     {
         Console.WriteLine("Projects:");
@@ -23,9 +20,6 @@ public static class ProjectsOption
         }
     }
     
-    /**
-     * https://docs.bexio.com/#tag/Projects/operation/v2CreateProject
-     */
     public static async Task CreateProject(ApiBexio.BexioApi bexioApi)
     {
         Console.WriteLine("Create a project:");
@@ -85,9 +79,6 @@ public static class ProjectsOption
         
     }
     
-    /**
-     * https://docs.bexio.com/#tag/Projects/operation/v2SearchProjects
-     */
     public static async Task SearchProjects(ApiBexio.BexioApi bexioApi) {
         Console.WriteLine("Search projects:");
 
@@ -131,9 +122,6 @@ public static class ProjectsOption
         }
     }
 
-    /**
-     * https://docs.bexio.com/#tag/Projects/operation/v2ShowProject
-     */
     public static async Task GetProject(ApiBexio.BexioApi bexioApi)
     {
         Console.WriteLine("Get a project:");
@@ -158,6 +146,46 @@ public static class ProjectsOption
         else
         {
             Console.WriteLine("No project found. Response is null.");
+        }
+    }
+
+    public static async Task GetProjectStatuses(ApiBexio.BexioApi bexioApi)
+    {
+        Console.WriteLine("Get a project statuses:");
+        
+        List<SimpleDictionaryEntry>? response = await bexioApi.Project.GetProjectStatusesAsync();
+        
+        if (response != null)
+        {
+            Console.WriteLine("Project Statuses:");
+            foreach (SimpleDictionaryEntry entry in response)
+            {
+                Console.WriteLine($"{entry.Id}: {entry.Name}");
+            }
+        }
+        else
+        {
+            Console.WriteLine("No project statuses found. Response is null.");
+        }
+    }
+
+    public static async Task GetProjectTypes(ApiBexio.BexioApi bexioApi)
+    {
+        Console.WriteLine("Get a project types:");
+        
+        List<SimpleDictionaryEntry>? response = await bexioApi.Project.GetProjectTypesAsync();
+        
+        if (response != null)
+        {
+            Console.WriteLine("Project Types:");
+            foreach (SimpleDictionaryEntry entry in response)
+            {
+                Console.WriteLine($"{entry.Id}: {entry.Name}");
+            }
+        }
+        else
+        {
+            Console.WriteLine("No project types found. Response is null.");
         }
     }
 }
