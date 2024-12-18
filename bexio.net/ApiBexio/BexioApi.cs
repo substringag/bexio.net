@@ -4,6 +4,7 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using bexio.net.ApiBexio.Others;
+using bexio.net.ApiBexio.SaleOrderManagement;
 using bexio.net.Converter;
 using bexio.net.Exceptions;
 using bexio.net.Helpers;
@@ -33,7 +34,7 @@ namespace bexio.net.ApiBexio
 
         public Contact.ContactApi Contact { get; }
         public Project.ProjectApi Project { get; }
-        public UsersApi Users { get; }
+        public Users.UsersApi Users { get; }
         public ItemAndProductApi ItemAndProduct { get; }
         public SaleOrderManagementApi SaleOrderManagement { get; }
 
@@ -51,7 +52,7 @@ namespace bexio.net.ApiBexio
 
             Contact                  = new Contact.ContactApi(this);
             Project                  = new Project.ProjectApi(this);
-            Users                    = new UsersApi(this);
+            Users                    = new Users.UsersApi(this);
             ItemAndProduct           = new ItemAndProductApi(this);
             SaleOrderManagement      = new SaleOrderManagementApi(this);
 
