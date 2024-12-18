@@ -143,16 +143,6 @@ namespace bexio.net.Example
             //     Console.WriteLine($"{ba.Id}: {ba.Name} \t {ba.DefaultPricePerHour}");
             // }
 
-            // Console.WriteLine("Projects:");
-            // foreach (var project in (await bexioApi.Project.GetProjectsAsync())!)
-            // {
-            //     Console.WriteLine($"{project.Id}: {project.Uuid} {project.Name}");
-            //     Console.WriteLine("Project milestones:");
-            //     foreach (var milestone in (await bexioApi.Project.GetProjectMilestonesAsync(project.Id))!)
-            //     {
-            //         Console.WriteLine($"{milestone.Id}: {milestone.Name}");
-            //     }
-            // }
             //
             // Console.WriteLine("Contacts: ");
             // foreach (var contact in (await bexioApi.Contact.GetContactsAsync())!)

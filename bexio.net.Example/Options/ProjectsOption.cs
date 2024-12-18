@@ -84,4 +84,47 @@ public static class ProjectsOption
         }
         
     }
+    
+    public static async Task SearchProjects(ApiBexio.BexioApi bexioApi) {
+        Console.WriteLine("Search projects:");
+
+        var apiModels = new ApiModels
+        {
+            SearchQuery = new SearchQuery
+            {
+                Field = "name",
+                Value = "WABIA",
+                Criteria = "like"
+            }
+        };
+
+        var validationResults = new List<ValidationResult>();
+        var context = new ValidationContext(apiModels.SearchQuery);
+        bool isValid = Validator.TryValidateObject(apiModels.SearchQuery, context, validationResults, true);
+        
+        if (!isValid)
+        {
+            foreach (ValidationResult validationResult in validationResults)
+            {
+                Console.WriteLine(validationResult.ErrorMessage);
+            }
+        }
+        else
+        {
+            List<Project>? response = await bexioApi.Project.SearchProjectsAsync([apiModels.SearchQuery]);
+            
+            if (response != null)
+            {
+                Console.WriteLine("Projects Found:");
+                foreach (Project project in response)
+                {
+                    Console.WriteLine($"{project.Id}: {project.Uuid} {project.Name}");
+                }
+            }
+            else
+            {
+                Console.WriteLine("No projects found. Response is null.");
+            }
+        }
+    }
 }

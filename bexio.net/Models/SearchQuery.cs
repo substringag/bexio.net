@@ -1,8 +1,9 @@
 using System.ComponentModel.DataAnnotations;
+using bexio.net.Utils;
 
 namespace bexio.net.Models
 {
-    public class SearchQuery
+    public record SearchQuery
     {
         /// <summary>
         /// Field which should be search over
@@ -17,8 +18,9 @@ namespace bexio.net.Models
         public string Value { get; set; } = "";
 
         /// <summary>
-        /// Possible values: See <see cref="bexio.net.Helpers.Constants.SearchCriteria"/>
+        /// Possible values: See <see cref="bexio.net.Helpers.Enums.SearchCriteria"/>
         /// </summary>
+        [EnumStringValidation(typeof(Helpers.Enums.SearchCriteria))]
         public string Criteria { get; set; } = "=";
 
         public SearchQuery()
