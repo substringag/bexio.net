@@ -1,4 +1,4 @@
-namespace bexio.net
+namespace bexio.net.ApiBexio.Others
 {
 	public partial class BexioApi
 	{

@@ -1,8 +1,8 @@
 namespace bexio.net.Models.Contacts
 {
-    public record AdditionalAddress : IHasPrimaryKey
+    public record AdditionalAddress
     {
-        public int     Id          { get; set; } = 0;
+        public int?     Id          { get; set; }
         public string? Name        { get; set; }
         public string? Address     { get; set; }
         public string? Postcode    { get; set; }

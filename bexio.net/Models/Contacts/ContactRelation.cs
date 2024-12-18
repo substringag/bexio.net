@@ -1,8 +1,8 @@
 namespace bexio.net.Models.Contacts
 {
-    public record ContactRelation : IHasPrimaryKey
+    public record ContactRelation
     {
-        public int       Id           { get; set; } = 0;
+        public int?       Id           { get; set; }
         public int       ContactId    { get; set; }
         public int       ContactSubId { get; set; }
         public string?   Description  { get; set; }

@@ -1,9 +1,8 @@
-using System.Threading.Tasks;
 using bexio.net.Models.Items;
 
-namespace bexio.net
+namespace bexio.net.ApiBexio.Others
 {
-	public partial class ItemAndProductApi
+	public class ItemAndProductApi
 	{
 		private readonly ApiBexio.BexioApi _api;
 

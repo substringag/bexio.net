@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using bexio.net.Helpers;
 using bexio.net.Models;
 using bexio.net.Models.Sales;
@@ -7,9 +5,9 @@ using bexio.net.Models.Sales.Positions;
 using bexio.net.Models.Sales.Repetition;
 using bexio.net.Responses;
 
-namespace bexio.net
+namespace bexio.net.ApiBexio.Others
 {
-	public partial class SaleOrderManagementApi
+	public class SaleOrderManagementApi
 	{
 		private readonly ApiBexio.BexioApi _api;
 

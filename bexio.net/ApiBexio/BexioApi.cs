@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using bexio.net.ApiBexio.Others;
 using bexio.net.Converter;
 using bexio.net.Exceptions;
 using bexio.net.Helpers;

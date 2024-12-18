@@ -9,7 +9,7 @@ namespace bexio.net.ApiBexio.Contact
 		#region Additional addresses
 
         /// <summary>
-        /// 
+        /// https://docs.bexio.com/#tag/Additional-Addresses
         /// </summary>
         /// <param name="contactId"></param>
         /// <param name="orderBy">"id" or "name" or "postcode" or "country_id" // may append _desc</param>
@@ -26,7 +26,7 @@ namespace bexio.net.ApiBexio.Contact
                 .AddQueryParameter("limit", limit));
 
         /// <summary>
-        /// 
+        /// https://docs.bexio.com/#tag/Additional-Addresses/operation/v2CreateAdditionalAddress
         /// </summary>
         /// <param name="data"></param>
         /// <param name="contactId"></param>
