@@ -3,7 +3,7 @@ namespace bexio.net.Helpers;
 internal static class Enums
 {
     // Based on Bexio API documentation values
-    public enum ValidPrInvoiceType
+    public enum ValidPrInvoiceTypeId
     {
         TypeHourlyRateService	= 1,
         TypeHourlyRateEmployee = 2,
@@ -41,5 +41,11 @@ internal static class Enums
         greater_equal,
         less_than,
         less_equal
+    }
+    
+    public enum ValidContactTypeId
+    {
+        Companies	= 1,
+        Persons = 2
     }
 }

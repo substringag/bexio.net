@@ -1,15 +1,14 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Text.Json.Serialization;
 
 namespace bexio.net.Models.Contacts
 {
-    public class Contact : IHasPrimaryKey
+    public record Contact
     {
-        public int     Id            { get; set; } = default;
+        public int?     Id            { get; set; }
         public string? Nr            { get; set; }
+        
+        [EnumDataType(typeof(Helpers.Enums.ValidContactTypeId), ErrorMessage = "ContactTypeId - Valid values are 1 or 2")]
         public int     ContactTypeId { get; set; } // 1 company, 2 person
 
         [JsonPropertyName("name_1")]

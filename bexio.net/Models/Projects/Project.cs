@@ -19,7 +19,7 @@ namespace bexio.net.Models.Projects
         public int       ContactId           { get; set; }
         public int?      ContactSubId        { get; set; }
         
-        [EnumDataType(typeof(Helpers.Enums.ValidPrInvoiceType), ErrorMessage = "PrInvoiceTypeId - Valid values are 1,2,3 or 4")]
+        [EnumDataType(typeof(Helpers.Enums.ValidPrInvoiceTypeId), ErrorMessage = "PrInvoiceTypeId - Valid values are 1,2,3 or 4")]
         public int?      PrInvoiceTypeId     { get; set; } 
         public decimal?  PrInvoiceTypeAmount { get; set; }
         

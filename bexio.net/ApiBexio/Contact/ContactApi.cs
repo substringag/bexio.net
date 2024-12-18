@@ -5,9 +5,9 @@ namespace bexio.net.ApiBexio.Contact
 {
 	public partial class ContactApi
 	{
-        private readonly ApiBexio.BexioApi _api;
+        private readonly BexioApi _api;
 
-        internal ContactApi(ApiBexio.BexioApi api)
+        internal ContactApi(BexioApi api)
         {
             _api = api;
         }
@@ -15,7 +15,7 @@ namespace bexio.net.ApiBexio.Contact
 		#region Contacts
 
         /// <summary>
-        /// 
+        /// https://docs.bexio.com/#tag/Contacts/operation/v2ListContacts
         /// </summary>
         /// <param name="orderBy">"id" or "nr" or "name_1" or "name_2" // may append _desc</param>
         /// <param name="offset"></param>
@@ -28,7 +28,7 @@ namespace bexio.net.ApiBexio.Contact
                 .AddQueryParameter("limit", limit));
 
         /// <summary>
-        /// 
+        /// https://docs.bexio.com/#tag/Contacts/operation/v2CreateContact
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
