@@ -9,7 +9,7 @@ namespace bexio.net.ApiBexio.Project
 		#region BusinessActivities
 
         /// <summary>
-        /// 
+        /// https://docs.bexio.com/#tag/Business-Activities/operation/v2ListBusinessActivities
         /// </summary>
         /// <param name="orderBy">"id" or "name" // may append _desc</param>
         /// <param name="offset"></param>
@@ -25,6 +25,7 @@ namespace bexio.net.ApiBexio.Project
                 .AddQueryParameter("limit", limit));
 
         /// <summary>
+        /// https://docs.bexio.com/#tag/Business-Activities/operation/v2CreateBusinessActivity
         /// Create a business activity
         /// </summary>
         /// <param name="data"></param>
@@ -33,7 +34,7 @@ namespace bexio.net.ApiBexio.Project
             => await _api.PostAsync<BusinessActivity>("2.0/client_service", data);
 
         /// <summary>
-        /// 
+        /// https://docs.bexio.com/#tag/Business-Activities/operation/v2SearchBusinessActivities
         /// </summary>
         /// <param name="data"></param>
         /// <param name="orderBy">"id" or "name" // may append _desc</param>
