@@ -1,6 +1,6 @@
 namespace bexio.net.Models.Projects.Timesheet.Tracking
 {
-    public class TimesheetStopwatch : TrackingBase
+    public record TimesheetStopwatch : TrackingBase
     {
         public override string Type => "stopwatch";
 

@@ -4,7 +4,7 @@ using bexio.net.Models.Projects;
 
 namespace bexio.net.Example.Options;
 
-public static class ProjectsOption
+internal static class ProjectsOption
 {
     public static async Task ShowProjectsAndMilestones(ApiBexio.BexioApi bexioApi)
     {

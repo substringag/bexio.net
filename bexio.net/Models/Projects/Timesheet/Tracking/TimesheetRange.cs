@@ -1,8 +1,6 @@
-using System;
-
 namespace bexio.net.Models.Projects.Timesheet.Tracking
 {
-    public class TimesheetRange : TrackingBase
+    public record TimesheetRange : TrackingBase
     {
         public override string Type => "range";
 

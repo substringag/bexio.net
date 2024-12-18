@@ -7,7 +7,7 @@ namespace bexio.net.Models.Projects.Timesheet.Tracking
     ///     "range"
     ///     "stopwatch"
     /// </summary>
-    public abstract class TrackingBase
+    public abstract record TrackingBase
     {
         public virtual string Type => "?";
     }

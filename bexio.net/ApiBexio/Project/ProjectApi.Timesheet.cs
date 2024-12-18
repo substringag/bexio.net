@@ -10,6 +10,7 @@ namespace bexio.net.ApiBexio.Project
 
         /// <summary>
         /// Gets a list of all timesheets
+        /// https://docs.bexio.com/#tag/Timesheets/operation/v2ListTimesheets
         /// </summary>
         /// <param name="orderBy">"id" or "date" // may append _desc</param>
         /// <param name="offset"></param>
@@ -23,7 +24,7 @@ namespace bexio.net.ApiBexio.Project
                 .AddQueryParameter("offset", offset));
 
         /// <summary>
-        /// 
+        /// https://docs.bexio.com/#tag/Timesheets/operation/v2CreateTimesheet
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -31,6 +32,7 @@ namespace bexio.net.ApiBexio.Project
             => await _api.PostAsync<TimesheetFetched>("2.0/timesheet", data);
 
         /// <summary>
+        /// https://docs.bexio.com/#tag/Timesheets/operation/v2SearchTimesheets
         /// Gets a list of timesheets that match the given filter.<br/>
         /// Valid searchable fields are:<br/>
         /// id, client_service_id, contact_id, user_id, pr_project_id, status_id
@@ -51,7 +53,7 @@ namespace bexio.net.ApiBexio.Project
                 data);
 
         /// <summary>
-        /// 
+        /// https://docs.bexio.com/#tag/Timesheets/operation/v2ShowTimesheet
         /// </summary>
         /// <param name="timesheetId"></param>
         /// <returns></returns>
@@ -59,7 +61,7 @@ namespace bexio.net.ApiBexio.Project
             => await _api.GetAsync<TimesheetFetched>($"/2.0/timesheet/{timesheetId}");
 
         /// <summary>
-        /// 
+        /// https://docs.bexio.com/#tag/Timesheets/operation/v2EditTimesheet
         /// </summary>
         /// <param name="data"></param>
         /// <param name="timesheetId"></param>
@@ -68,7 +70,7 @@ namespace bexio.net.ApiBexio.Project
             => await _api.PostAsync<Timesheet>($"/2.0/timesheet/{timesheetId.ToString()}", data);
 
         /// <summary>
-        /// 
+        /// https://docs.bexio.com/#tag/Timesheets/operation/DeleteTimesheet
         /// </summary>
         /// <param name="timesheetId"></param>
         /// <returns></returns>
@@ -76,7 +78,7 @@ namespace bexio.net.ApiBexio.Project
             => await _api.DeleteAsync($"2.0/timesheet/{timesheetId.ToString()}");
 
         /// <summary>
-        /// 
+        /// https://docs.bexio.com/#tag/Timesheets/operation/v2ListTimeSheetStatus
         /// </summary>
         /// <param name="orderBy">"id" or "name" // may append _desc</param>
         /// <param name="offset"></param>

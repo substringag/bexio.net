@@ -1,4 +1,5 @@
 using bexio.net.Models.Projects;
+using bexio.net.Models.Projects.Timesheet;
 
 namespace bexio.net.Models;
 

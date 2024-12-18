@@ -1,12 +1,9 @@
-using System;
-
 namespace bexio.net.Models.Projects.Timesheet
 {
-    // TODO maybe this can be merged with its parent class, depending on real world tests. 
-    public class TimesheetFetched : Timesheet, IHasPrimaryKey
+    public record TimesheetFetched : Timesheet, IHasPrimaryKey
     {
-        public int      Id       { get; set; } = default;
-        public string   Date     { get; set; }
+        public int      Id       { get; set; } = 0;
+        public string   Date     { get; set; } = null!;
         public string?  Duration { get; set; }
         public bool?    Running  { get; set; }
 
