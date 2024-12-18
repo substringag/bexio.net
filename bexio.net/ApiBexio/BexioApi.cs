@@ -30,7 +30,7 @@ namespace bexio.net.ApiBexio
 
         private Encoding Encoding { get; set; } = Encoding.UTF8;
 
-        public ContactApi Contact { get; }
+        public Contact.ContactApi Contact { get; }
         public Project.ProjectApi Project { get; }
         public UsersApi Users { get; }
         public ItemAndProductApi ItemAndProduct { get; }
@@ -48,7 +48,7 @@ namespace bexio.net.ApiBexio
             _httpClient.DefaultRequestHeaders.Add("User-Agent",
                 $"BexioApi/{VERSION} (DotNet/{Environment.Version}/{Environment.OSVersion})");
 
-            Contact                  = new ContactApi(this);
+            Contact                  = new Contact.ContactApi(this);
             Project                  = new Project.ProjectApi(this);
             Users                    = new UsersApi(this);
             ItemAndProduct           = new ItemAndProductApi(this);

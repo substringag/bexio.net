@@ -1,10 +1,7 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using bexio.net.Helpers;
 using bexio.net.Models;
-using bexio.net.Models.Contacts;
 
-namespace bexio.net
+namespace bexio.net.ApiBexio.Contact
 {
 	public partial class ContactApi
 	{
@@ -24,8 +21,8 @@ namespace bexio.net
         /// <param name="offset"></param>
         /// <param name="limit">max: 2000</param>
         /// <returns></returns>
-        public async Task<List<Contact>?> GetContactsAsync(int orderBy = 0, int offset = 0, int limit = 500)
-            => await _api.GetAsync<List<Contact>>("2.0/contact"
+        public async Task<List<Models.Contacts.Contact>?> GetContactsAsync(int orderBy = 0, int offset = 0, int limit = 500)
+            => await _api.GetAsync<List<Models.Contacts.Contact>>("2.0/contact"
                 .AddQueryParameter("order_by", orderBy)
                 .AddQueryParameter("offset", offset)
                 .AddQueryParameter("limit", limit));
@@ -35,8 +32,8 @@ namespace bexio.net
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public async Task<Contact?> CreateContactAsync(Contact data)
-            => await _api.PostAsync<Contact>("2.0/contact", data);
+        public async Task<Models.Contacts.Contact?> CreateContactAsync(Models.Contacts.Contact data)
+            => await _api.PostAsync<Models.Contacts.Contact>("2.0/contact", data);
 
         /// <summary>
         /// possible search fields: "id", "name_1", "name_2",
@@ -49,11 +46,11 @@ namespace bexio.net
         /// <param name="offset"></param>
         /// <param name="limit">max: 2000</param>
         /// <returns></returns>
-        public async Task<List<Contact>?> SearchContactsAsync(List<SearchQuery> data,
+        public async Task<List<Models.Contacts.Contact>?> SearchContactsAsync(List<SearchQuery> data,
                                                               string            orderBy = "id",
                                                               int               offset  = 0,
                                                               int               limit   = 500)
-            => await _api.PostAsync<List<Contact>>("2.0/contact/search"
+            => await _api.PostAsync<List<Models.Contacts.Contact>>("2.0/contact/search"
                     .AddQueryParameter("order_by", orderBy)
                     .AddQueryParameter("offset", offset)
                     .AddQueryParameter("limit", limit),
@@ -64,8 +61,8 @@ namespace bexio.net
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<Contact?> GetContactAsync(int id)
-            => await _api.GetAsync<Contact>("2.0/contact/" + id);
+        public async Task<Models.Contacts.Contact?> GetContactAsync(int id)
+            => await _api.GetAsync<Models.Contacts.Contact>("2.0/contact/" + id);
 
         /// <summary>
         /// 
@@ -73,8 +70,8 @@ namespace bexio.net
         /// <param name="id"></param>
         /// <param name="data"></param>
         /// <returns></returns>
-        public async Task<Contact?> UpdateContactAsync(int id, Contact data)
-            => await _api.PostAsync<Contact>("2.0/contact/" + id, data);
+        public async Task<Models.Contacts.Contact?> UpdateContactAsync(int id, Models.Contacts.Contact data)
+            => await _api.PostAsync<Models.Contacts.Contact>("2.0/contact/" + id, data);
 
         /// <summary>
         /// 
@@ -89,8 +86,8 @@ namespace bexio.net
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public async Task<List<Contact>?> CreateContactsAsync(List<Contact> data)
-            => await _api.PostAsync<List<Contact>>("2.0/contact/_bulk_create", data);
+        public async Task<List<Models.Contacts.Contact>?> CreateContactsAsync(List<Models.Contacts.Contact> data)
+            => await _api.PostAsync<List<Models.Contacts.Contact>>("2.0/contact/_bulk_create", data);
 
 
 

@@ -1,10 +1,8 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using bexio.net.Helpers;
 using bexio.net.Models;
 using bexio.net.Models.Contacts;
 
-namespace bexio.net
+namespace bexio.net.ApiBexio.Contact
 {
 	public partial class ContactApi
 	{
