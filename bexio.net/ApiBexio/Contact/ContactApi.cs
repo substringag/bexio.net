@@ -36,6 +36,7 @@ namespace bexio.net.ApiBexio.Contact
             => await _api.PostAsync<Models.Contacts.Contact>("2.0/contact", data);
 
         /// <summary>
+        /// https://docs.bexio.com/#tag/Contacts/operation/v2SearchContact
         /// possible search fields: "id", "name_1", "name_2",
         /// "nr", "address", "mail", "mail_second", "postcode",
         /// "city", "country_id", "contact_group_ids", "contact_type_id",
@@ -57,7 +58,7 @@ namespace bexio.net.ApiBexio.Contact
                 data);
 
         /// <summary>
-        /// 
+        /// https://docs.bexio.com/#tag/Contacts/operation/v2ShowContact
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -65,7 +66,7 @@ namespace bexio.net.ApiBexio.Contact
             => await _api.GetAsync<Models.Contacts.Contact>("2.0/contact/" + id);
 
         /// <summary>
-        /// 
+        /// https://docs.bexio.com/#tag/Contacts/operation/v2EditContact
         /// </summary>
         /// <param name="id"></param>
         /// <param name="data"></param>
@@ -74,7 +75,7 @@ namespace bexio.net.ApiBexio.Contact
             => await _api.PostAsync<Models.Contacts.Contact>("2.0/contact/" + id, data);
 
         /// <summary>
-        /// 
+        /// https://docs.bexio.com/#tag/Contacts/operation/v2DeleteContact
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -82,7 +83,7 @@ namespace bexio.net.ApiBexio.Contact
             => await _api.DeleteAsync("2.0/contact/" + id);
 
         /// <summary>
-        /// 
+        /// https://docs.bexio.com/#tag/Contacts/operation/v2BulkCreateContacts
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
