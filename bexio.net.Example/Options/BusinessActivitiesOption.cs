@@ -2,7 +2,7 @@ using bexio.net.Models.Projects;
 
 namespace bexio.net.Example.Options;
 
-public static class BusinessActivitiesOption
+internal static class BusinessActivitiesOption
 {
     public static async Task ShowBusinessActivities(ApiBexio.BexioApi bexioApi)
     {

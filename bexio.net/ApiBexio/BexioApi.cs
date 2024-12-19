@@ -3,6 +3,8 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using bexio.net.ApiBexio.Others;
+using bexio.net.ApiBexio.SaleOrderManagement;
 using bexio.net.Converter;
 using bexio.net.Exceptions;
 using bexio.net.Helpers;
@@ -30,9 +32,9 @@ namespace bexio.net.ApiBexio
 
         private Encoding Encoding { get; set; } = Encoding.UTF8;
 
-        public ContactApi Contact { get; }
-        public ProjectApi Project { get; }
-        public UsersApi Users { get; }
+        public Contact.ContactApi Contact { get; }
+        public Project.ProjectApi Project { get; }
+        public Users.UsersApi Users { get; }
         public ItemAndProductApi ItemAndProduct { get; }
         public SaleOrderManagementApi SaleOrderManagement { get; }
 
@@ -48,9 +50,9 @@ namespace bexio.net.ApiBexio
             _httpClient.DefaultRequestHeaders.Add("User-Agent",
                 $"BexioApi/{VERSION} (DotNet/{Environment.Version}/{Environment.OSVersion})");
 
-            Contact                  = new ContactApi(this);
-            Project                  = new ProjectApi(this);
-            Users                    = new UsersApi(this);
+            Contact                  = new Contact.ContactApi(this);
+            Project                  = new Project.ProjectApi(this);
+            Users                    = new Users.UsersApi(this);
             ItemAndProduct           = new ItemAndProductApi(this);
             SaleOrderManagement      = new SaleOrderManagementApi(this);
 
@@ -70,54 +72,6 @@ namespace bexio.net.ApiBexio
             _serializeOptions.Converters.Add(new InvoicePositionsConverter());
             _serializeOptions.Converters.Add(new OrderRepetitionConverter());
         }
-
-        #region Other Endpoints
-
-        // TODO
-
-        // Fetch a list of company profiles
-        // Show company profile
-
-        // Fetch a list of countries
-        // Create country
-        // Search countries
-        // Fetch a country
-        // Edit a country
-        // Delete a country
-
-        // Fetch a list of languages
-        // Search languages
-
-        // Fetch a list of notes
-        // Create note
-        // Search notes
-        // Fetch a note
-        // Edit a note
-        // Delete a note
-
-        // Fetch a list of payment types
-        // Search payment types
-
-        // Get access information of logged in user
-
-        // Fetch a list of tasks
-        // Create task
-        // Search tasks
-        // Fetch a task
-        // Edit a task
-        // Delete a task
-        // Task priorities
-        // Task status
-
-        // Fetch a list of units
-        // Create unit
-        // Search units
-        // Fetch a unit
-        // Edit a unit
-        // Delete a unit
-
-        #endregion
-        
 
         #region Internal Methods
 

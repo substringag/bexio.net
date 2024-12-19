@@ -1,12 +1,9 @@
-using System;
+namespace bexio.net.Models.Sales.Repetition;
 
-namespace bexio.net.Models.Sales.Repetition
+public record OrderRepetition
 {
-    public class OrderRepetition
-    {
-        public DateTime? Start { get; set; }
-        public DateTime? End   { get; set; }
+    public DateTime? Start { get; set; }
+    public DateTime? End   { get; set; }
 
-        public OrderRepetitionIntervalBase? Repetition { get; set; }
-    }
+    public OrderRepetitionIntervalBase? Repetition { get; set; }
 }

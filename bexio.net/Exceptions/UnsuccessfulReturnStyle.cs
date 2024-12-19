@@ -1,8 +1,7 @@
-namespace bexio.net.Exceptions
+namespace bexio.net.Exceptions;
+
+public enum UnsuccessfulReturnStyle
 {
-    public enum UnsuccessfulReturnStyle
-    {
-        Throw,
-        ReturnNull
-    }
+    Throw,
+    ReturnNull
 }

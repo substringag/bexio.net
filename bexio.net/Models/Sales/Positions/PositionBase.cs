@@ -1,8 +1,7 @@
-namespace bexio.net.Models.Sales.Positions
+namespace bexio.net.Models.Sales.Positions;
+
+public abstract record PositionBase
 {
-    public abstract class PositionBase
-    {
-        public         int?    Id   { get; set; }
-        public virtual string? Type { get; set; }
-    }
+    public         int?    Id   { get; set; }
+    public virtual string? Type { get; set; }
 }

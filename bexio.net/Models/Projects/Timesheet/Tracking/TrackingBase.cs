@@ -1,14 +1,13 @@
-namespace bexio.net.Models.Projects.Timesheet.Tracking
+namespace bexio.net.Models.Projects.Timesheet.Tracking;
+
+/// <summary>
+/// Base class for the tracking entity.
+/// Possible values for "type" are:
+///     "duration"
+///     "range"
+///     "stopwatch"
+/// </summary>
+public abstract record TrackingBase
 {
-    /// <summary>
-    /// Base class for the tracking entity.
-    /// Possible values for "type" are:
-    ///     "duration"
-    ///     "range"
-    ///     "stopwatch"
-    /// </summary>
-    public abstract class TrackingBase
-    {
-        public virtual string Type => "?";
-    }
+    public virtual string Type => "?";
 }

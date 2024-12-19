@@ -1,8 +1,7 @@
-namespace bexio.net.Models.Sales
+namespace bexio.net.Models.Sales;
+
+public record Delivery : SalesBaseObject
 {
-    public class Delivery : SalesBaseObject
-    {
-        public int?    DeliveryAddressType { get; set; }
-        public string? DeliveryAddress     { get; set; }
-    }
+    public int?    DeliveryAddressType { get; set; }
+    public string? DeliveryAddress     { get; set; }
 }

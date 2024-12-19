@@ -1,13 +1,12 @@
-namespace bexio.net.Models
-{
-    public class SimpleDictionaryEntry
-    {
-        public int     Id   { get; set; } = default;
-        public string? Name { get; set; } = "";
+namespace bexio.net.Models;
 
-        public override string ToString()
-        {
-            return Name ?? "";
-        }
+public record SimpleDictionaryEntry
+{
+    public int     Id   { get; set; } = 0;
+    public string? Name { get; set; } = "";
+
+    public override string ToString()
+    {
+        return Name ?? "";
     }
 }

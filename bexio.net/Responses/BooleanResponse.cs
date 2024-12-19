@@ -1,7 +1,6 @@
-namespace bexio.net.Responses
+namespace bexio.net.Responses;
+
+public record BooleanResponse
 {
-    public class BooleanResponse
-    {
-        public bool Success { get; set; }
-    }
+    public bool Success { get; set; }
 }
