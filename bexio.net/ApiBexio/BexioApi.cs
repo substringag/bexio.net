@@ -73,54 +73,6 @@ namespace bexio.net.ApiBexio
             _serializeOptions.Converters.Add(new OrderRepetitionConverter());
         }
 
-        #region Other Endpoints
-
-        // TODO
-
-        // Fetch a list of company profiles
-        // Show company profile
-
-        // Fetch a list of countries
-        // Create country
-        // Search countries
-        // Fetch a country
-        // Edit a country
-        // Delete a country
-
-        // Fetch a list of languages
-        // Search languages
-
-        // Fetch a list of notes
-        // Create note
-        // Search notes
-        // Fetch a note
-        // Edit a note
-        // Delete a note
-
-        // Fetch a list of payment types
-        // Search payment types
-
-        // Get access information of logged in user
-
-        // Fetch a list of tasks
-        // Create task
-        // Search tasks
-        // Fetch a task
-        // Edit a task
-        // Delete a task
-        // Task priorities
-        // Task status
-
-        // Fetch a list of units
-        // Create unit
-        // Search units
-        // Fetch a unit
-        // Edit a unit
-        // Delete a unit
-
-        #endregion
-        
-
         #region Internal Methods
 
         internal async Task<TResponse?> GetAsync<TResponse>(string url, [CallerMemberName] string callerName = "")

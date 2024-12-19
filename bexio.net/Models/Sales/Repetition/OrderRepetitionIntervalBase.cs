@@ -1,7 +1,6 @@
-namespace bexio.net.Models.Sales.Repetition
+namespace bexio.net.Models.Sales.Repetition;
+
+public abstract record OrderRepetitionIntervalBase
 {
-    public abstract class OrderRepetitionIntervalBase
-    {
-        public virtual string Type => "?";
-    }
+    public virtual string Type => "?";
 }

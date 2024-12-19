@@ -1,6 +1,5 @@
-﻿namespace bexio.net.Helpers
+﻿namespace bexio.net.Helpers;
+
+internal static class Constants
 {
-    internal static class Constants
-    {
-    }
 }

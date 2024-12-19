@@ -7,6 +7,7 @@ namespace bexio.net.ApiBexio.SaleOrderManagement;
 
 public partial class SaleOrderManagementApi
 {
+    
     #region Invoice
     
     // Fetch a list of invoices

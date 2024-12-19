@@ -1,12 +1,9 @@
-using System.Collections.Generic;
+namespace bexio.net.Models.Sales.Repetition;
 
-namespace bexio.net.Models.Sales.Repetition
+public record OrderRepetitionWeekly : OrderRepetitionIntervalBase
 {
-    public class OrderRepetitionWeekly : OrderRepetitionIntervalBase
-    {
-        public override string Type => "weekly";
+    public override string Type => "weekly";
 
-        public int          Interval { get; set; } // in weeks
-        public List<string> Weekdays { get; set; } = new();
-    }
+    public int          Interval { get; set; } // in weeks
+    public List<string> Weekdays { get; set; } = new();
 }
