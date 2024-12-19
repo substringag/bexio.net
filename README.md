@@ -12,7 +12,7 @@ Find official API documentation [here](https://docs.bexio.com/)
 As this is still a work in progress, only some API calls are implemented and tested.
 
 * [x] Contacts
-* [ ] Sales Order Management
+* [x] Sales Order Management (NOT ALL ENDPOINTS)
 * [ ] Purchase
 * [ ] Accounting
 * [ ] Banking

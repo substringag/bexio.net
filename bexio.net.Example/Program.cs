@@ -43,9 +43,13 @@ namespace bexio.net.Example
                 // Display menu
                 for (int i = 0; i < options.Count; i++)
                 {
-                    Console.WriteLine($"{i + 1}. {options[i].Method.Name} ({options[i].ClassName})");
+                    Console.WriteLine("{0,-5} {1,-30} {2}", 
+                        $"{i + 1}.", 
+                        options[i].Method.Name, 
+                        $"({options[i].ClassName})");
                 }
-
+                
+                Console.WriteLine();
                 Console.WriteLine($"{options.Count + 1}. Exit");
 
                 // Get user input
@@ -101,7 +105,7 @@ namespace bexio.net.Example
         {
             try
             {
-                Console.WriteLine($"Executing: {option.Method.Name} in {option.ClassName}");
+                Console.WriteLine($"Executing: {option.Method.Name} in **{option.ClassName}**");
                 Type? type = option.Method.DeclaringType;
 
                 // Invoke the method dynamically
