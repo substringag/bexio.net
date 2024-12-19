@@ -1,6 +1,6 @@
 namespace bexio.net.Models.Sales
 {
-    public class Order : SalesBaseObject
+    public record Order : SalesBaseObject
     {
         public int?    DeliveryAddressType { get; set; }
         public string? DeliveryAddress     { get; set; }

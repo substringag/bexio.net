@@ -1,8 +1,6 @@
-using System;
-
 namespace bexio.net.Models.Sales
 {
-    public class Quote : SalesBaseObject
+    public record Quote : SalesBaseObject
     {
         public DateTime? IsValidUntil               { get; set; }
         public int?      DeliveryAddressType        { get; set; }

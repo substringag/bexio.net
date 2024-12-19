@@ -1,8 +1,6 @@
-using System;
-
 namespace bexio.net.Models.Sales
 {
-    public class Invoice : SalesBaseObject
+    public record Invoice : SalesBaseObject
     {
         public string?   TotalReceivedPayments { get; set; }
         public string?   TotalCreditVouchers   { get; set; }

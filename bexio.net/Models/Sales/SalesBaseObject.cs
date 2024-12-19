@@ -1,10 +1,8 @@
-using System;
-using System.Collections.Generic;
 using bexio.net.Models.Sales.Positions;
 
 namespace bexio.net.Models.Sales
 {
-    public abstract class SalesBaseObject : IHasPrimaryKey
+    public abstract record SalesBaseObject : IHasPrimaryKey
     {
         public int     Id            { get; set; }
         public string? DocumentNr    { get; set; }
@@ -44,7 +42,7 @@ namespace bexio.net.Models.Sales
 
         public List<PositionBase>? Positions { get; set; }
 
-        public class TaxesIncluded
+        public record TaxesIncluded
         {
             public string? Percentage { get; set; }
             public string? Value      { get; set; }
