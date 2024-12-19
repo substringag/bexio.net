@@ -28,16 +28,16 @@ internal static class ProjectsOption
         {
             Project = new Project
             {
-                Name = "TEST PROJECT WABIA",
+                Name = "NAME",
                 StartDate = DateTime.Now,
                 EndDate = null,
                 Comment = string.Empty,
-                PrStateId = 1,
-                PrProjectTypeId = 2,
-                ContactId = 54,
-                PrInvoiceTypeId = 8,
-                PrInvoiceTypeAmount = 230.00m,
-                UserId = 13
+                PrStateId = 0,
+                PrProjectTypeId = 0,
+                ContactId = 0,
+                PrInvoiceTypeId = 0,
+                PrInvoiceTypeAmount = 0m,
+                UserId = 0
             }
         };
         
@@ -86,8 +86,8 @@ internal static class ProjectsOption
         {
             SearchQuery = new SearchQuery
             {
-                Field = "name",
-                Value = "WABIA",
+                Field = "",
+                Value = "",
                 Criteria = "like"
             }
         };

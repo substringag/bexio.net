@@ -25,11 +25,11 @@ internal static class ContactsOption
         {
             Contact = new Contact
             {
-                ContactTypeId = 1,
-                Name1 = "TEST WABIA",
+                ContactTypeId = 0,
+                Name1 = "NAME_1",
                 Name2 = "NAME_2",
-                UserId = 14,
-                OwnerId = 14
+                UserId = 0,
+                OwnerId = 0
             }
         };
         
