@@ -216,8 +216,8 @@ namespace bexio.net.ApiBexio
 
 #if DEBUG
                 // Save response to file with method name
-                string rootPath = Path.Combine(Directory.GetParent(AppContext.BaseDirectory)!.Parent!.Parent!.Parent!.FullName, $"Responses/{callerName}.txt");
-                await File.WriteAllTextAsync(rootPath, responseContentString);
+                string filePath = FileHelper.GetResponseFilePath();
+                await File.WriteAllTextAsync(filePath, responseContentString);
                 
                 Console.WriteLine("### Response-Content: " + responseContentString);
                 Console.WriteLine("### ---");
