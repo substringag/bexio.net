@@ -2,7 +2,7 @@ namespace bexio.net.Models;
 
 public record PaginatedList<TItem>
 {
-    private List<TItem> List       { get; }
+    public List<TItem> List       { get; }
     private int         Limit      { get; }
     private int         Offset     { get; }
     private int         TotalCount { get; }
