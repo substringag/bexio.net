@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using bexio.net.ApiBexio.Invoices;
 using bexio.net.ApiBexio.Others;
 using bexio.net.ApiBexio.SaleOrderManagement;
 using bexio.net.Converter;
@@ -37,6 +38,7 @@ namespace bexio.net.ApiBexio
         public Users.UsersApi Users { get; }
         public ItemAndProductApi ItemAndProduct { get; }
         public SaleOrderManagementApi SaleOrderManagement { get; }
+        public InvoiceApi Invoice { get; }
 
         public BexioApi(string                  apiToken,
                         string                  url                     = "https://api.bexio.com",
@@ -55,6 +57,7 @@ namespace bexio.net.ApiBexio
             Users                    = new Users.UsersApi(this);
             ItemAndProduct           = new ItemAndProductApi(this);
             SaleOrderManagement      = new SaleOrderManagementApi(this);
+            Invoice                  = new InvoiceApi(this);
 
             _serializeOptions = new JsonSerializerOptions
             {

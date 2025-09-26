@@ -11,24 +11,29 @@ Find official API documentation [here](https://docs.bexio.com/)
 
 As this is still a work in progress, only some API calls are implemented and tested.
 
-* [x] Contacts
-* [x] Sales Order Management (NOT ALL ENDPOINTS)
-* [ ] Purchase
-* [ ] Accounting
-* [ ] Banking
-* [ ] Items & Products
-* [x] Projects & Time Tracking
-* [ ] Files
-* [ ] Other
-    * [ ] Company Profile
-    * [ ] Countries
-    * [ ] Languages
-    * [ ] Notes
-    * [ ] Payment Types
-    * [ ] Permissions
-    * [ ] Tasks
-    * [ ] Units
-    * [x] User Management
+### Main API Categories
+
+* [x] **Contacts** - Complete implementation (contacts, salutations, titles, groups, relations, additional addresses)
+* [x] **Invoices** - Complete implementation with CRUD operations, actions, and payment management
+* [x] **Sales Order Management** - Partial implementation (quotes, orders, invoices, deliveries, documents)
+* [x] **Projects & Time Tracking** - Complete implementation (projects, timesheets, business activities)
+* [x] **User Management** - Complete implementation (users, fictional users)
+* [ ] **Purchase** - Planned (bills, expenses, purchase orders, outgoing payments)
+* [ ] **Accounting** - Planned (accounts, currencies, manual entries, taxes, VAT periods)
+* [ ] **Banking** - Planned (bank accounts, IBAN payments, QR payments)
+* [ ] **Items & Products** - Partial (single article fetch only, stock locations and areas missing)
+* [ ] **Files** - Planned (file management and operations)
+
+### Other Endpoints
+
+* [ ] **Company Profile** - Company information endpoints
+* [ ] **Countries** - Country management endpoints
+* [ ] **Languages** - Language management endpoints
+* [ ] **Notes** - Note management endpoints
+* [ ] **Payment Types** - Payment type endpoints
+* [ ] **Permissions** - Permission and access management
+* [ ] **Tasks** - Task management endpoints
+* [ ] **Units** - Unit management endpoints
 
 ## Installation
 
