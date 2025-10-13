@@ -21,7 +21,11 @@ public record Contact
     public int?      SalutationForm { get; set; }
     public int?      TitleId        { get; set; }
     public DateTime? Birthday       { get; set; }
-    public string?   Address        { get; set; }
+    
+    public string?   StreetName     { get; set; }
+    public string?   HouseNumber    { get; set; }
+    public string?   AddressAddition { get; set; }
+    
     public string?   Postcode       { get; set; }
     public string?   City           { get; set; }
     public int?      CountryId      { get; set; }
