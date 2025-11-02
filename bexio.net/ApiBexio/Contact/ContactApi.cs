@@ -83,6 +83,18 @@ public partial class ContactApi
         => await _api.DeleteAsync("2.0/contact/" + id);
 
     /// <summary>
+    /// Restore an archived contact
+    /// https://docs.bexio.com/#tag/Contacts
+    /// </summary>
+    /// <param name="id">Contact ID</param>
+    /// <returns>True if successful</returns>
+    public async Task<bool?> RestoreContactAsync(int id)
+    {
+        var result = await _api.PatchAsync<object>($"2.0/contact/{id}/restore", null);
+        return result != null;
+    }
+
+    /// <summary>
     /// https://docs.bexio.com/#tag/Contacts/operation/v2BulkCreateContacts
     /// </summary>
     /// <param name="data"></param>
