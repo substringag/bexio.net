@@ -6,6 +6,7 @@ using System.Text.Json.Serialization;
 using bexio.net.ApiBexio.Invoices;
 using bexio.net.ApiBexio.Others;
 using bexio.net.ApiBexio.SaleOrderManagement;
+using bexio.net.Authentication;
 using bexio.net.Converter;
 using bexio.net.Exceptions;
 using bexio.net.Helpers;
@@ -26,7 +27,7 @@ namespace bexio.net.ApiBexio
         private const string VERSION = "3.0.0";
 
         private readonly string                  _url;
-        private readonly string                  _apiToken;
+        private readonly IAccessTokenProvider    _accessTokenProvider;
         private readonly UnsuccessfulReturnStyle _unsuccessfulReturnStyle;
         private readonly JsonSerializerOptions   _serializeOptions;
         private readonly HttpClient              _httpClient;
@@ -43,10 +44,21 @@ namespace bexio.net.ApiBexio
         public BexioApi(string                  apiToken,
                         string                  url                     = "https://api.bexio.com",
                         UnsuccessfulReturnStyle unsuccessfulReturnStyle = UnsuccessfulReturnStyle.ReturnNull)
+            : this(new StaticAccessTokenProvider(apiToken), url, unsuccessfulReturnStyle)
+        {
+        }
+
+        /// <summary>
+        /// Asks <paramref name="accessTokenProvider"/> for the token on every request, e.g. to use
+        /// OAuth access tokens that are refreshed in the background.
+        /// </summary>
+        public BexioApi(IAccessTokenProvider    accessTokenProvider,
+                        string                  url                     = "https://api.bexio.com",
+                        UnsuccessfulReturnStyle unsuccessfulReturnStyle = UnsuccessfulReturnStyle.ReturnNull)
         {
             _url                     = url;
             _unsuccessfulReturnStyle = unsuccessfulReturnStyle;
-            _apiToken                = apiToken;
+            _accessTokenProvider     = accessTokenProvider;
 
             _httpClient = new HttpClient();
             _httpClient.DefaultRequestHeaders.Add("User-Agent",
@@ -240,6 +252,10 @@ namespace bexio.net.ApiBexio
             {
                 throw;
             }
+            catch (AccessTokenException)
+            {
+                throw;
+            }
             catch (Exception exception)
             {
                 // TODO: log to ILogger
@@ -250,10 +266,27 @@ namespace bexio.net.ApiBexio
 
         private async Task<HttpResponseMessage?> ExecuteHttpRequest(HttpRequestMessage request)
         {
-            request.Headers.Add(HttpRequestHeader.Authorization.ToString(), "Bearer " + _apiToken);
+            string accessToken;
+            try
+            {
+                accessToken = await _accessTokenProvider.GetAccessTokenAsync();
+            }
+            catch (AccessTokenException)
+            {
+                throw;
+            }
+            catch (Exception exception)
+            {
+                throw new AccessTokenException(exception.Message, exception);
+            }
+
+            request.Headers.Add(HttpRequestHeader.Authorization.ToString(), "Bearer " + accessToken);
             request.Headers.Add(HttpRequestHeader.Accept.ToString(), "application/json");
 
             HttpResponseMessage httpResponse = await _httpClient.SendAsync(request);
+
+            if (httpResponse.StatusCode == HttpStatusCode.Unauthorized)
+                _accessTokenProvider.Invalidate();
 
             if (httpResponse.StatusCode != HttpStatusCode.OK &&
                 httpResponse.StatusCode != HttpStatusCode.Created &&
