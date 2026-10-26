@@ -43,7 +43,7 @@ Dot.NET
 
 ## Usage
 
-1. Obtain an api token from [here](https://office.bexio.com/admin/apiTokens)
+1. Obtain a Personal Access Token from [here](https://developer.bexio.com/pat)
 2. Check the **bexio.net.Example** project on how to use it
    1. Rename **appsettings.example.json** to **appsettings.json**
    2. Add your api token to the **appsettings.json**
@@ -52,10 +52,21 @@ Dot.NET
 
 ## Authentication
 
-We decided to use the direct API Token approach as described 
-[here](https://docs.bexio.com/#section/Authentication/API-Tokens). 
-The Implementation of oauth 'Authorization Code Grant' flow is described
-in the official documentation but not implemented in this API client.
+`BexioApi` accepts either a fixed token or an `IAccessTokenProvider`:
+
+```csharp
+// Personal Access Token (https://developer.bexio.com/pat) - valid for 60 days only
+var bexio = new BexioApi("<pat>");
+
+// OAuth: the provider is asked for a token on every request and told via Invalidate() when
+// bexio answered 401, so it can refresh short-lived access tokens transparently
+var bexio = new BexioApi(myAccessTokenProvider);
+```
+
+The OAuth [Authorization Code Flow](https://docs.bexio.com/#section/Authentication/Authorization-Code-Flow)
+itself (consent, token exchange, refresh token storage) belongs to the hosting application and is
+not part of this client. If the provider throws, the request is not sent and an
+`AccessTokenException` is thrown regardless of `UnsuccessfulReturnStyle`.
 
 ---
 
